@@ -1,5 +1,28 @@
 # Development Log - Backend (Kalianak platform)
 
+## 🟢 Session: 2025-12-28 09:00:00
+
+- **Topic:** Monorepo Finalization and Cleanup
+- **Git Branch:** 🕹️ `new_frontend` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Repository Cleanup:**
+  - Removed root-level configuration files (`docker-compose.yml`, `.env`, `dev_log.md`) from the backend repository as they are now managed by the monorepo root.
+  - Updated `core/settings.py` and `core/urls.py` to reflect the new directory structure and integration requirements.
+  - Updated `pyproject.toml`, `requirements.txt`, and `uv.lock` to ensure dependencies are clean for the containerized environment.
+- **Git Submodule Integration:**
+  - Prepared the backend to function purely as a submodule within the `kalianak_platform` monorepo.
+  - Staged all deletions and modifications for a clean history.
+
+### 👌 What Went Well
+
+- The separation of concerns between the monorepo root and the backend application is now clear.
+- All configuration files have been successfully migrated to the root.
+
+---
+
 ## 🟢 Session: 2025-12-24 16:30:00
 
 - **Topic:** Monorepo Migration and Unified Docker Setup

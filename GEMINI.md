@@ -54,3 +54,34 @@ The project is transitioning to a monorepo-style structure:
 
 ## Current Task: The Merge
 We are currently merging `ikan_bakar_pos` and `ikan_bakar_pos_frontend` into `backend` and `frontend` directories, respectively, and unifying the Docker setup.
+
+## Git Configuration & Monorepo Structure
+
+The project is now a **Monorepo** using Git Submodules.
+
+*   **Root**: Main repository tracking submodules and shared config.
+*   **Submodules**:
+    *   `backend` -> `kalianak_platform_backend`
+    *   `frontend` -> `kalianak_platform_frontend`
+    *   `web_frontend` -> `kalianak_platform_web_frontend`
+
+**Agent Instructions for Git:**
+1.  **Submodules**: When pulling the repo, always ensure submodules are updated (`git submodule update --init --recursive`).
+2.  **Committing**: Changes within `backend/` or `frontend/` must be committed **inside** those directories first. Then, the updated submodule reference must be committed in the root repository.
+
+## Documentation & Dev Logs
+
+Maintenance of development logs is critical for project continuity.
+
+*   **Files**:
+    *   `dev-log-backend.md`: For all backend/Django related changes.
+    *   `dev-log-frontend.md`: For the POS React frontend.
+    *   `dev-log-web_frontend.md`: For the public website.
+
+**Editing Rules:**
+1.  **Style**: Strictly follow the format in `dev-log-backend.md`.
+    *   Header: `## 🟢 Session: YYYY-MM-DD HH:MM:SS`
+    *   Sections: `Topic`, `Git Branch`, `Git Commit`, `✨ Summary`, `👌 What Went Well`, `😫 Issues`, `🧐 Fixes`.
+2.  **Timing**: Update the relevant log at the end of every coding session or before a significant context switch.
+3.  **Content**: Be specific about modified files and architectural decisions.
+

@@ -1,6 +1,9 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/Bapplan/ikan_bakar_pos_new.git
+	url = https://github.com/Bapplan/kalianak_platform_backend.git
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/Bapplan/ikan_bakar_pos_frontend.git
+	url = https://github.com/Bapplan/kalianak_platform_frontend.git
+[submodule "web_frontend"]
+	path = web_frontend
+	url = https://github.com/Bapplan/kalianak_platform_web_frontend.gi
