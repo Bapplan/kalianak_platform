@@ -74,6 +74,7 @@ The project is now a **Monorepo** using Git Submodules.
 Maintenance of development logs is critical for project continuity.
 
 *   **Files**:
+    *   `dev-log-kalianak_platform.md`: For root-level changes (Docker, submodules, global config).
     *   `dev-log-backend.md`: For all backend/Django related changes.
     *   `dev-log-frontend.md`: For the POS React frontend.
     *   `dev-log-web_frontend.md`: For the public website.
