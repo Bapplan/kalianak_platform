@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Bapplan/ikan_bakar_pos_new.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Bapplan/ikan_bakar_pos_frontend.git
