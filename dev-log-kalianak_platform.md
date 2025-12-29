@@ -4,7 +4,7 @@
 
 - **Topic:** Integration: Connecting React Frontend to Django Backend
 - **Git Branch:** 🕹️ `main` 🕹️
-- **Git Commit:** (Pending)
+- **Git Commit:** Committed `b5d4eb5` (Chore: Update submodules and dev logs after integration)
 
 ### ✨ Summary of Activities
 
