@@ -1,7 +1,5 @@
 # KALIANAK PLATFORM MONOREPO
 
-![alt text](backend_screenshot.png)
-
 ![Monorepo](https://img.shields.io/badge/Architecture-Monorepo-orange)
 ![Status](https://img.shields.io/badge/Status-Active-green)
 
@@ -33,7 +31,7 @@ This is the central monorepo for the **Kalianak Platform**, unifying the backend
 
 1.  **Clone the Monorepo**:
     ```bash
-    git clone --recursive <monorepo-url>
+    git clone --recursive https://github.com/Bapplan/kalianak_platform.git
     cd kalianak_platform
     ```
     *If you already cloned without `--recursive`, run:*

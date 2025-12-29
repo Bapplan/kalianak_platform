@@ -1,5 +1,41 @@
 # Development Log - Backend (Kalianak platform)
 
+## 🟢 Session: 2025-12-28 14:00:00
+
+- **Topic:** API Implementation & Data Population
+- **Git Branch:** 🕹️ `new_frontend` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **API Development (Django Ninja Extra)**:
+  - Created `api.py` in `inventory`, `menu`, `orders`, and `users` apps.
+  - Implemented Schemas (Pydantic) and Controllers for:
+    - `InventoryController`: Unified Ingredients/Supplies/Hygiene endpoint.
+    - `MenuController`: Dishes and Categories.
+    - `OrdersController`: Order management.
+    - `UsersController`: Staff and Restaurant data.
+  - Registered all controllers in `core/urls.py`.
+- **Configuration**:
+  - Updated `core/settings.py` to add `localhost:3001` (frontend) to `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS`.
+- **Data Management**:
+  - Fixed and ran `populate_inventory.py` (replaced missing `Side` model with `Supplies`).
+  - Ran `populate_new_menu.py` to seed the database with Ikan Bakar dishes.
+
+### 👌 What Went Well
+
+- Using `NinjaExtraAPI` allowed us to keep the existing Django Models exactly as they were, adding a clean API layer on top without refactoring the core database structure.
+
+### 😫 Issues Encountered
+
+- **Import Error**: `populate_inventory.py` failed because it tried to import a `Side` model that no longer existed.
+
+### 🧐 How Issues Were Fixed
+
+- Updated the management command to use the `Supplies` model instead of `Side`.
+
+---
+
 ## 🟢 Session: 2025-12-28 09:00:00
 
 - **Topic:** Monorepo Finalization and Cleanup

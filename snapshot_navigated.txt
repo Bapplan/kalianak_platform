@@ -1,0 +1,1 @@
+uid=11_0 RootWebArea "Kalianak POS" url="http://127.0.0.1:3001/"

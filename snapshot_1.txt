@@ -1,0 +1,15 @@
+uid=1_0 RootWebArea "Kalianak POS" url="http://127.0.0.1:3001/"
+  uid=1_1 heading "Kalianak POS" level="1"
+  uid=1_2 StaticText "Enterprise management system. Integrated with Django backend for seamless operations."
+  uid=1_3 StaticText "v1.2.0"
+  uid=1_4 StaticText "Secure"
+  uid=1_5 StaticText "Synced"
+  uid=1_6 StaticText "Location"
+  uid=1_7 combobox expandable haspopup="menu" value="Restaurant 1"
+    uid=1_8 option "Restaurant 1" selectable selected value="Restaurant 1"
+    uid=1_9 option "Restaurant 2" selectable value="Restaurant 2"
+  uid=1_10 StaticText "Username"
+  uid=1_11 textbox "ID" required
+  uid=1_12 StaticText "Password"
+  uid=1_13 textbox "••••••••" required
+  uid=1_14 button "Unlock Terminal"
