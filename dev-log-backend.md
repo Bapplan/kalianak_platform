@@ -1,5 +1,52 @@
 # Development Log - Backend (Kalianak platform)
 
+## 🟢 Session: 2025-12-30 18:30:00
+
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Order Creator Resolution**:
+  - Enhanced `create_order` to look up users by `username` if the frontend sends a plain string (like 'admin').
+  - Added `staffName` field to `OrderSchema` to return the full name of the staff member who took the order.
+  - Optimized `get_orders` query with `select_related('created_by')`.
+
+### 👌 What Went Well
+
+- Fallback logic for staff resolution ensures orders are never orphaned even if lookup fails.
+
+---
+
+## 🟢 Session: 2025-12-30 17:30:00
+
+- **Topic:** Order Management Enhancements
+
+## 🟢 Session: 2025-12-30 16:45:00
+
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Bank App Development**:
+  - Created `apps.bank` to manage financial accounts and transactions.
+  - Implemented `Account` and `Transaction` models.
+  - Developed `BankController` using `django-ninja-extra` with endpoints for:
+    - Listing and creating accounts.
+    - Listing and creating transactions.
+    - Automatic account balance updates upon transaction creation.
+  - Configured Django Admin for the Bank app.
+  - Seeded default accounts: Cash, Quris, Grab, Bank Transfer, and Credit Card.
+- **Integration**:
+  - Registered `apps.bank` in `INSTALLED_APPS`.
+  - Added `BankController` to the main API in `core/urls.py`.
+
+### 👌 What Went Well
+
+- The migration to a real backend-backed Bank system was smooth.
+- Using a service layer pattern in the API controller for balance updates keeps the logic explicit.
+
+---
+
 ## 🟢 Session: 2025-12-28 14:00:00
 
 - **Git Commit:** Committed `4108a55` (Feat: Add Ninja API, configure CORS, and seed data)

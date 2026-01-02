@@ -1,5 +1,102 @@
 # Development Log - Frontend (Kalianak Platform)
 
+## 🟢 Session: 2025-12-30 18:30:00
+
+- **Topic:** Staff Tracking & Payment UX
+- **Git Branch:** 🕹️ `main` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Staff Tracking**:
+  - Updated `App.tsx` to send real username as `staffId`.
+  - Added `staffName` to `Order` type.
+  - Updated `OrdersList` details modal to show both Table and Staff Member in a 3-column layout.
+- **Payment UX Improvements**:
+  - Filtered out "Grab" and "Grep" accounts from the payment modal.
+  - Implemented a touch-friendly **Numpad** for Cash payments.
+  - Added real-time **Change** calculation display.
+  - Removed old manual amount input for a cleaner look.
+
+### 👌 What Went Well
+
+- The 3-column layout in order details provides a high-density information view that is easy to read.
+- The Numpad makes the tablet experience much better for cashiers.
+
+---
+
+## 🟢 Session: 2025-12-30 18:00:00
+
+- **Topic:** UI Styling & Logic Tweaks
+- **Git Branch:** 🕹️ `main` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Recipe Cost Analysis**:
+  - Replaced "Base Cost" display with "Profit" (showing `Selling Price - Cost`).
+  - Styled Profit as success (green) for better visual feedback.
+- **Order List Badges**:
+  - Improved `PENDING` status badge: Orange background, darker orange text, orange border.
+  - Improved `PAID` status badge: Green background, darker green text, green border.
+  - This improves readability and distinction between states.
+
+### 👌 What Went Well
+
+- Quick Tailwind class adjustments made significant visual improvements.
+
+---
+
+## 🟢 Session: 2025-12-30 17:30:00
+
+- **Topic:** Order Management Enhancements
+- **Git Branch:** 🕹️ `main` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Pending Orders Actions**:
+  - Added "Edit" and "Pay" buttons to the Orders List for pending orders.
+  - Created `EditOrderModal`: Allows modifying item quantities, removing items, and changing tables.
+  - Created `PayOrderModal`: Handles payment processing with selection of Bank Accounts (Cash, QRIS, etc.).
+- **Table Management**:
+  - Updated `NewOrderModal` to require Table selection.
+  - Added `Table` interface and API integration.
+- **UI/UX**:
+  - Implemented smooth zoom/fade animations for all modals.
+  - Added visual validation for table selection.
+
+### 👌 What Went Well
+
+- Reusing the cart logic from `NewOrderModal` for `EditOrderModal` saved significant time.
+- The separation of "Order" and "Transaction" logic is clean.
+
+---
+
+## 🟢 Session: 2025-12-30 17:00:00
+
+- **Topic:** Bank Module Integration
+- **Git Branch:** 🕹️ `main` 🕹️
+- **Git Commit:** (Pending)
+
+### ✨ Summary of Activities
+
+- **Bank Component Integration**:
+  - Replaced mock `db` calls in `Bank.tsx` with real `api` service calls.
+  - Added "Account Balances" section to the Bank dashboard.
+  - Updated the Ledger table to display the used Account for each transaction.
+- **Service & Types Update**:
+  - Added `BankAccount` interface and updated `Transaction` interface in `types.ts`.
+  - Added `transactions` and `accounts` endpoints to `ApiService.ts`.
+  - Updated `loadInitialState` to fetch financial data on startup.
+
+### 👌 What Went Well
+
+- The Bank dashboard is now fully functional and reflects real-time balances from the backend.
+- UI components (DaisyUI) adapted easily to the new data structure.
+
+---
+
 ## 🟢 Session: 2025-12-28 14:00:00
 
 - **Topic:** Backend Integration & Service Refactor
