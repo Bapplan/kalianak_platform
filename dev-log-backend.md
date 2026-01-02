@@ -2,24 +2,42 @@
 
 ## 🟢 Session: 2025-12-30 18:30:00
 
-- **Git Commit:** (Pending)
+- **Git Commit:** `531657c` (Feat: Bank app, Order Payment/Edit, and Tables API)
 
 ### ✨ Summary of Activities
 
-- **Order Creator Resolution**:
-  - Enhanced `create_order` to look up users by `username` if the frontend sends a plain string (like 'admin').
-  - Added `staffName` field to `OrderSchema` to return the full name of the staff member who took the order.
-  - Optimized `get_orders` query with `select_related('created_by')`.
+- **Bank App Development**:
+  - Created `apps.bank` with `Account` and `Transaction` models.
+  - Implemented `BankController` for financial operations.
+  - Seeded default accounts.
+- **Orders API Updates**:
+  - Enhanced `OrdersController` to support:
+    - `PUT /orders/{id}`: Updating order items and table assignment.
+    - `POST /orders/{id}/pay`: Processing payments.
+  - **Refactor**: Moved `get_tables` to a new `TablesController` at `/api/tables/`.
+  - **Fix**: Increased `Order.order_number` max_length to 50.
+  - **Staff Resolution**: Enhanced `create_order` to look up users by username and return `staffName`.
+  - Linked `Table` model to Orders via API.
+- **Integration**:
+  - Registered `apps.bank` and `TablesController` in `core/settings.py` and `core/urls.py`.
 
 ### 👌 What Went Well
 
-- Fallback logic for staff resolution ensures orders are never orphaned even if lookup fails.
+- The existing `Order` and `Table` models were sufficient; only API exposure was needed.
+- `django-ninja-extra` made adding the new endpoints (PUT, pay action) straightforward.
+- Fallback logic for staff resolution ensures orders are never orphaned.
+
+### 😫 Issues Encountered
+
+- **Blank Modal**: The "New Order" modal was blank because the `/api/orders/tables` endpoint returned `405 Method Not Allowed`.
+- **Order Creation Error**: `DataError: value too long` for `order_number` (20 chars vs 25 generated).
+
+### 🧐 How Issues Were Fixed
+
+- **URL Conflict**: Created `TablesController` with a distinct `/api/tables` prefix.
+- **Data Error**: Increased `order_number` max_length to 50 via migration `0016`.
 
 ---
-
-## 🟢 Session: 2025-12-30 17:30:00
-
-- **Topic:** Order Management Enhancements
 
 ## 🟢 Session: 2025-12-30 16:45:00
 

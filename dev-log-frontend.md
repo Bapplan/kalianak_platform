@@ -2,32 +2,33 @@
 
 ## 🟢 Session: 2025-12-30 18:30:00
 
-- **Topic:** Staff Tracking & Payment UX
+- **Topic:** Bank, Order Management & Payment UX
 - **Git Branch:** 🕹️ `main` 🕹️
-- **Git Commit:** (Pending)
+- **Git Commit:** `816e88e` (Feat: Bank view, Order payment flow, Staff tracking, and UI improvements)
 
 ### ✨ Summary of Activities
 
-- **Staff Tracking**:
-  - Updated `App.tsx` to send real username as `staffId`.
-  - Added `staffName` to `Order` type.
-  - Updated `OrdersList` details modal to show both Table and Staff Member in a 3-column layout.
-- **Payment UX Improvements**:
-  - Filtered out "Grab" and "Grep" accounts from the payment modal.
-  - Implemented a touch-friendly **Numpad** for Cash payments.
-  - Added real-time **Change** calculation display.
-  - Removed old manual amount input for a cleaner look.
+- **Bank Module**:
+  - Integrated `Bank` component with real backend data.
+  - Added Account Balances and Transaction Ledger.
+- **Order Management**:
+  - **New Order**: Added Table Selection.
+  - **Pending Orders**: Added "Edit" (quantity/table) and "Pay" actions.
+  - **Order Details**: Implemented 3-column layout (Table, Staff, Time).
+  - **Staff Tracking**: Sending and displaying real username.
+- **Payment UX**:
+  - Created `PayOrderModal` with account selection (filtering out "Grab").
+  - Implemented touch-friendly **Numpad** for Cash payments with Change calculation.
+- **UI Styling**:
+  - Improved Status Badges (Pending/Paid).
+  - Updated Recipe Cost Analysis to show "Profit" in green.
 
 ### 👌 What Went Well
 
-- The 3-column layout in order details provides a high-density information view that is easy to read.
-- The Numpad makes the tablet experience much better for cashiers.
+- The new Payment Modal with Numpad significantly improves the cashier experience.
+- Reusing cart logic for Edit Modal was efficient.
 
 ---
-
-## 🟢 Session: 2025-12-30 18:00:00
-
-- **Topic:** UI Styling & Logic Tweaks
 - **Git Branch:** 🕹️ `main` 🕹️
 - **Git Commit:** (Pending)
 

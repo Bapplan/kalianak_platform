@@ -1,4 +1,21 @@
-# Development Log - Kalianak Platform (Monorepo Root)
+# Development Log - Kalianak Platform (Root)
+
+## 🟢 Session: 2025-12-30 18:45:00
+
+- **Git Commit:** `bfb4ca7` (Chore: Update submodules with Bank and Orders features)
+
+### ✨ Summary of Activities
+
+- **Submodule Updates**:
+  - Updated `backend` submodule to include the new Bank app, Orders API enhancements, and fixes.
+  - Updated `frontend` submodule to include Bank UI, Order Management features (Edit/Pay), and Payment UX improvements.
+
+### 👌 What Went Well
+
+- Monorepo structure is working as intended, keeping separate concerns in submodules while tracking state in root.
+
+---
+
 
 ## 🟢 Session: 2025-12-28 14:00:00
 
