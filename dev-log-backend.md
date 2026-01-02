@@ -2,7 +2,9 @@
 
 ## 🟢 Session: 2025-12-30 18:30:00
 
-- **Git Commit:** `531657c` (Feat: Bank app, Order Payment/Edit, and Tables API)
+- **Topic:** Bank & Orders API Finalization
+- **Git Branch:** `new_frontend` -> `main`
+- **Git Commit:** `531657c` (Feat: Bank/Orders) & `71b9d37` (Refactor: Remove unused templates)
 
 ### ✨ Summary of Activities
 
@@ -20,6 +22,8 @@
   - Linked `Table` model to Orders via API.
 - **Integration**:
   - Registered `apps.bank` and `TablesController` in `core/settings.py` and `core/urls.py`.
+- **Cleanup**:
+  - Removed unused Django templates and legacy configuration files to finalize monorepo structure.
 
 ### 👌 What Went Well
 
@@ -41,7 +45,9 @@
 
 ## 🟢 Session: 2025-12-30 16:45:00
 
-- **Git Commit:** (Pending)
+- **Topic:** Bank App Implementation
+- **Git Branch:** `new_frontend`
+- **Git Commit:** `531657c` (Included in Feat: Bank app...)
 
 ### ✨ Summary of Activities
 
@@ -67,7 +73,9 @@
 
 ## 🟢 Session: 2025-12-28 14:00:00
 
-- **Git Commit:** Committed `4108a55` (Feat: Add Ninja API, configure CORS, and seed data)
+- **Topic:** API Development
+- **Git Branch:** `new_frontend`
+- **Git Commit:** `4108a55` (Feat: Add Ninja API, configure CORS, and seed data)
 
 ### ✨ Summary of Activities
 
@@ -101,9 +109,9 @@
 
 ## 🟢 Session: 2025-12-28 09:00:00
 
-- **Topic:** Monorepo Finalization and Cleanup
-- **Git Branch:** 🕹️ `new_frontend` 🕹️
-- **Git Commit:** (Pending)
+- **Topic:** Monorepo Cleanup
+- **Git Branch:** `new_frontend`
+- **Git Commit:** `fa63b47` (Refactor: Cleanup for monorepo structure. Removed root configs and updated core settings.)
 
 ### ✨ Summary of Activities
 
@@ -124,9 +132,9 @@
 
 ## 🟢 Session: 2025-12-24 16:30:00
 
-- **Topic:** Monorepo Migration and Unified Docker Setup
-- **Git Branch:** 🕹️ `new_frontend` 🕹️
-- **Git Commit:** (Pending user commit)
+- **Topic:** Monorepo Migration
+- **Git Branch:** `models_cleanup`
+- **Git Commit:** `1f781fe` (mellanlandning)
 
 ### ✨ Summary of Activities
 
@@ -165,9 +173,9 @@
 
 ## 💯 Session: 2025-12-23 10:00:00
 
-- **Topic:** Codebase Cleanup and Simplification
-- **Git Branch:** 🕹️ `models_cleanup` 🕹️
-- **Git Commit:** Committed changes (Refactor: cleanup codebase)
+- **Topic:** Codebase Cleanup
+- **Git Branch:** `models_cleanup`
+- **Git Commit:** `97e0a68` (Refactor: cleanup codebase (remove unused apps, simplify models/views))
 
 ### ✨ Summary of Activities
 
@@ -197,8 +205,9 @@
 
 ## 🟢 Session: 2025-12-21 00:32:34
 
-- **Topic:** Debugging and fixing the 'Lainnya' tab in the menu management page.
-- **Git Branch:** 🕹️ `main` 🕹️
+- **Topic:** Bugfix: Menu Tabs
+- **Git Branch:** `main`
+- **Git Commit:** `17fbb73` (Fix: Resolve HTMX trigger conflict on menu category tabs)
 
 ### ✨ Summary of Activities
 
