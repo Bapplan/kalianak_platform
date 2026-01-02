@@ -1,2 +1,3 @@
 .DS_Store\n.env\n.venv\n__pycache__\n*.log\nbackend/.env\nbackend/dev_log.md\nbackend/docker-compose.yml
 .env
+_arkiv/
