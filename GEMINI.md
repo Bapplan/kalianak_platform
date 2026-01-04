@@ -31,6 +31,7 @@ The project is transitioning to a monorepo-style structure:
 ### General
 *   **Environment**: Managed via `.env` files.
 *   **Containerization**: All services run via `docker-compose` from the root.
+*   **Command Execution**: Use `docker-compose exec backend uv run ...` for running Django management commands or scripts inside the backend container.
 
 ### Backend (Django)
 *   **API Design**: Use `django-ninja-extra` controllers.

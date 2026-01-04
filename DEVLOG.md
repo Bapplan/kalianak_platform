@@ -1,7 +1,26 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-01-04
+**Topic:** Bank Module Refactor (Double Entry System)
+**Branches:** `main`
+
+### 🏗️ Backend Changes
+* **Commit:** `(Pending)`
+* **Summary:** Refactored Bank app to use Double Entry Bookkeeping.
+* **Details:**
+    *   **Models:** Replaced simple `Account` and `Transaction` with `AccountGroup`, `Account`, `Transaction`, and `JournalEntry` models.
+    *   **Services:** Implemented `BankService` to handle double-entry logic, including `process_order_payment`.
+    *   **API:** Updated `BankController` to map legacy endpoints to the new double-entry system.
+        *   `list_transactions` now flattens Journal Entries for frontend compatibility.
+        *   `create_transaction` automatically creates balanced Debit/Credit entries.
+    *   **Admin:** Updated Django Admin to support the new models.
+    *   **Migration:** Created and applied migrations (`0002_accountgroup...`), handling non-nullable constraints by making `group` and `restaurant` fields nullable for transition.
+
+---
+
 ## 🟢 Session: 2025-12-30
-**Topic:** Bank Module & Order Management Features
+
+**Topic:** Bank Module & Order Management Features  
 **Branches:** `main` (Root), `new_frontend` -> `main` (Backend), `main` (Frontend)
 
 ### 🌳 Root / Configuration
@@ -33,7 +52,7 @@
 ---
 
 ## 🟢 Session: 2025-12-28
-**Topic:** Monorepo Integration & API Connection
+**Topic:** Monorepo Integration & API Connection.  
 **Branches:** `main` (Root), `new_frontend` (Backend), `main` (Frontend)
 
 ### 🌳 Root / Configuration
@@ -81,7 +100,7 @@
 ---
 
 ## 🟢 Session: 2025-12-23
-**Topic:** Codebase Cleanup
+**Topic:** Codebase Cleanup  
 **Branches:** `models_cleanup`
 
 ### 🏗️ Backend Changes
@@ -92,7 +111,7 @@
 ---
 
 ## 🟢 Session: 2025-12-21
-**Topic:** Bugfix
+**Topic:** Bugfix  
 **Branches:** `main`
 
 ### 🏗️ Backend Changes
