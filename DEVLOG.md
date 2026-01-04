@@ -16,6 +16,7 @@
     *   **Admin:** Updated Django Admin to support the new models.
     *   **Migration:** Created and applied migrations (`0002_accountgroup...`), handling non-nullable constraints by making `group` and `restaurant` fields nullable for transition.
     *   **Fix:** Resolved 500 Error in `list_accounts` by resetting bank data (wiping legacy accounts with null groups) and verifying lazy seeding works.
+    *   **Fix:** Updated `OrdersController.pay_order` to use `BankService` for double-entry transactions, resolving a crash caused by legacy code accessing removed model fields.
 
 ---
 
