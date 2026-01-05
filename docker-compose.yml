@@ -61,9 +61,11 @@ services:
       - backend
     command:
       - "http"
-      - "backend:8000"
+      - "frontend:3000"
       - "--authtoken=${NGROK_AUTH}"
       - "--domain=${NGROK_DOMAIN}"
+      - "--log=stdout"
+      - "--log-level=debug"
     env_file:
       - .env
     ports:

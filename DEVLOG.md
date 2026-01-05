@@ -19,6 +19,7 @@
     *   **Fix:** Updated `OrdersController.pay_order` to use `BankService` for double-entry transactions, resolving a crash caused by legacy code accessing removed model fields.
     *   **Fix:** Updated `BankController.list_transactions` to return unique `JournalEntry` IDs instead of `Transaction` IDs, resolving frontend duplicate key warnings.
     *   **Fix:** Added `min-h-0` to flex containers in `NewOrderModal` to prevent content squashing when lists overflow, ensuring scrolling works correctly.
+    *   **Infra:** Reconfigured `ngrok` in `docker-compose.yml` to tunnel to `frontend:3000` instead of `backend:8000`, ensuring external users access the React App (which proxies API requests) rather than the headless Django backend.
 
 ---
 
