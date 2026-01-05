@@ -24,6 +24,7 @@
     *   **Fix:** Updated `frontend/services/apiService.ts` to use a relative API path (`/api`) by default. This resolves Mixed Content errors and connection failures when accessing the app via ngrok, as it correctly leverages the Vite proxy instead of trying to hit `localhost:8001` from the client's browser.
     *   **Fix:** Configured Vite to proxy `/media` requests to the backend and updated frontend components to use relative image paths. This ensures images load correctly on both localhost and external (ngrok) domains by avoiding hardcoded `localhost:8001` URLs.
     *   **Feat:** Implemented data polling (5s interval) in `Dashboard` and `OrdersList` components to enable real-time-like updates of Active Orders and Order status without manual page refresh.
+    *   **Feat:** Integrated Kitchen Printer support. Backend now sends formatted ESC/POS receipts to a local printer bridge (`host.docker.internal:9001`) upon order creation.
 
 ---
 
