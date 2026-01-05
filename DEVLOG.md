@@ -20,6 +20,8 @@
     *   **Fix:** Updated `BankController.list_transactions` to return unique `JournalEntry` IDs instead of `Transaction` IDs, resolving frontend duplicate key warnings.
     *   **Fix:** Added `min-h-0` to flex containers in `NewOrderModal` to prevent content squashing when lists overflow, ensuring scrolling works correctly.
     *   **Infra:** Reconfigured `ngrok` in `docker-compose.yml` to tunnel to `frontend:3000` instead of `backend:8000`, ensuring external users access the React App (which proxies API requests) rather than the headless Django backend.
+    *   **Config:** Added `allowedHosts` to `vite.config.ts` to permit ngrok domain access.
+    *   **Fix:** Updated `frontend/services/apiService.ts` to use a relative API path (`/api`) by default. This resolves Mixed Content errors and connection failures when accessing the app via ngrok, as it correctly leverages the Vite proxy instead of trying to hit `localhost:8001` from the client's browser.
 
 ---
 
