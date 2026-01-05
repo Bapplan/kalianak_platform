@@ -5,7 +5,7 @@
 **Branches:** `main`
 
 ### 🏗️ Backend Changes
-* **Commit:** `(Pending)`
+* **Commit:** `38b84fc`
 * **Summary:** Refactored Bank app to use Double Entry Bookkeeping.
 * **Details:**
     *   **Models:** Replaced simple `Account` and `Transaction` with `AccountGroup`, `Account`, `Transaction`, and `JournalEntry` models.
