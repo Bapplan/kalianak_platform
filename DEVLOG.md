@@ -26,6 +26,7 @@
     *   **Feat:** Implemented data polling (5s interval) in `Dashboard` and `OrdersList` components to enable real-time-like updates of Active Orders and Order status without manual page refresh.
     *   **Feat:** Integrated Kitchen Printer support. Backend now sends formatted ESC/POS receipts to a local printer bridge (`host.docker.internal:9001`) upon order creation.
     *   **UX:** Enhanced `NewOrderModal` responsiveness for small tablets and mobile devices. Added a collapsible mobile cart with a floating bottom summary bar, and optimized grid/text sizing for smaller viewports.
+    *   **UI:** Added micro-interactions to cart quantity buttons (active scale, color swap) and improved the mobile close button styling (red circle) for better tactile feedback.
 
 ---
 
