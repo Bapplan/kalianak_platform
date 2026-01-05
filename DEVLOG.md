@@ -25,6 +25,7 @@
     *   **Fix:** Configured Vite to proxy `/media` requests to the backend and updated frontend components to use relative image paths. This ensures images load correctly on both localhost and external (ngrok) domains by avoiding hardcoded `localhost:8001` URLs.
     *   **Feat:** Implemented data polling (5s interval) in `Dashboard` and `OrdersList` components to enable real-time-like updates of Active Orders and Order status without manual page refresh.
     *   **Feat:** Integrated Kitchen Printer support. Backend now sends formatted ESC/POS receipts to a local printer bridge (`host.docker.internal:9001`) upon order creation.
+    *   **UX:** Enhanced `NewOrderModal` responsiveness for small tablets and mobile devices. Added a collapsible mobile cart with a floating bottom summary bar, and optimized grid/text sizing for smaller viewports.
 
 ---
 
