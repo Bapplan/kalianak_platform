@@ -1,5 +1,49 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-01-07
+**Topic:** Multi-Restaurant Architecture, Inventory Restock, & UX Polish
+**Branches:** `main`
+
+### 🏗️ Backend Changes
+*   **Summary:** Implemented "Global Definitions, Local Stock" architecture and Restock workflows.
+*   **Details:**
+    *   **Models:**
+        *   Created `InventoryStock` to track stock per-restaurant (decoupling `Ingredient`/`Supplies` from specific restaurants).
+        *   Added `restaurant` FK to `Order` and `RestockOrder` models to support multi-tenancy.
+        *   Deprecated `stock` field on global item definitions (`Ingredient`, etc.).
+    *   **API (Inventory):**
+        *   Updated `get_inventory` to respect `X-Restaurant-ID` header and return restaurant-specific stock levels.
+        *   Implemented full Restock workflow: `get_pending_restock`, `add_to_restock`, `update_restock_item`, `complete_restock`.
+        *   **Fix:** Updated `complete_restock` to correctly increment `InventoryStock` and mark orders as completed.
+        *   **Fix:** Added logic to strip `res-` prefix from `X-Restaurant-ID` header (e.g., `res-2` -> `2`) to prevent `ValueError` and 500 errors.
+    *   **API (Orders):**
+        *   Updated `create_order` and `get_orders` to handle `X-Restaurant-ID` context.
+        *   Updated `OrderDish` model logic to deduct stock from the correct `InventoryStock` record upon payment.
+    *   **Fix:** Added trailing slashes to all API routes (e.g., `/api/inventory/` instead of `/api/inventory`) to resolve 301 Redirect/404 errors on stricter clients (Safari/Arc) and ensure compatibility with Django's `APPEND_SLASH` behavior.
+    *   **Receipts:** Improved Kitchen Receipt format (Bigger dish text, standard header size, "Meja: 1" format).
+
+### 🎨 Frontend Changes
+*   **Summary:** Integrated Restock UI, Toast Notifications, and Restaurant Context.
+*   **Details:**
+    *   **Features:**
+        *   **Restock Manager:** Created UI for managing pending purchases (`RestockManager.tsx`), adding items from Supplies (`Supplies.tsx`), and completing restock orders.
+        *   **Context:** Implemented `RestockProvider` for global cart state management.
+    *   **UX/UI:**
+        *   **Toasts:** Replaced invasive `alert()` and `confirm()` dialogs with a smooth `ToastContext` and notification system.
+        *   **Header:** Added prominent Restaurant Name badge (e.g., "Restaurant 1") to the top bar and Dashboard hero section.
+    *   **Fixes:**
+        *   **Build:** Fixed `Uncaught SyntaxError` in `App.tsx` (missing default export).
+        *   **Network:** Updated `apiService.ts` to append trailing slashes to all requests, resolving cross-browser 404/CORS issues.
+        *   **Logic:** Updated `handleLogin` and `apiService` to store and transmit the correct `restaurantId` (stripped of prefix) to the backend.
+
+### 🐛 Issue Log: "Restock Not Working"
+*   **Symptom:** User reported "Restock function doesn't work... list still populated" and observed 404 errors in Safari/Arc.
+*   **Root Cause 1 (Cross-Browser):** Missing trailing slashes in API calls caused 301 redirects which failed in some environments or were mishandled by the proxy/browser combination. **Fixed.**
+*   **Root Cause 2 (Logic):** The frontend was sending `X-Restaurant-ID: res-2` (string from ID generator) but the backend expected an integer. This caused a hidden 500 Error during `get_inventory` and Restock operations. **Fixed** by stripping the prefix in the backend controllers.
+*   **Resolution:** Verified via shell script (`backfill_stock.py`) and UI checks that stock levels now correctly increase after completing a restock order.
+
+---
+
 ## 🟢 Session: 2026-01-04
 **Topic:** Bank Module Refactor (Double Entry System)
 **Branches:** `main`

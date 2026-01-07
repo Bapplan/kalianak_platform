@@ -63,3 +63,10 @@ We maintain separate development logs for each component. Please verify and upda
 ## Credentials
 
 (See `backend/README.md` for local development credentials)
+
+## Print stuff
+
+```shell
+# run at folder: "/Users/andershedborg/print_worker" in separate shell, etc.
+uv run printer_bridge.py
+```
