@@ -1,6 +1,31 @@
 # 📜 Kalianak Platform - Master Dev Log
 
-## 🟢 Session: 2026-01-07
+## 🟢 Session: 2026-01-07 (Afternoon)
+**Topic:** PWA, Offline Support, & UI Polish
+**Branches:** `main`
+
+### 🎨 Frontend Changes
+*   **Summary:** Transformed the application into a PWA with full offline capabilities and enhanced Order UI.
+*   **Details:**
+    *   **PWA:** Configured `vite-plugin-pwa` for installability. Added manifest, icons, and meta tags.
+    *   **Offline Support:** Implemented `offlineService.ts` using IndexedDB (`idb`).
+        *   **Caching:** Network-first strategy for GET requests (Menu, Inventory, Orders).
+        *   **Sync:** Optimistic UI for mutations. Offline POST/PUT/DELETE requests are queued in an `outbox` and automatically synced when back online via `window.addEventListener('online')`.
+        *   **Pending Orders:** Implemented logic to merge locally queued "offline orders" into the main Orders List, allowing seamless operation without internet.
+    *   **UI Improvements:**
+        *   **Supplies:** Added Sorting (Name, Stock Low/High) to prevent items from jumping around during updates.
+        *   **New Order Modal:** Added loading spinner and graceful empty states ("No categories found", "No items") to prevent the "empty modal" experience during data fetch or if 500 errors occur.
+        *   **Restock Manager:** Fixed jumpy sliders by refactoring into `RestockItemRow` with local state. Replaced Alerts with Toasts. Implemented `removeRestockItem`.
+        *   **Tables:** Populated tables for Restaurant 1 & 2 to ensure the order flow works.
+        *   **Dishes:** Populated initial menu items (Jus Alpukat, etc.).
+
+### 🏗️ Backend Changes
+*   **Fix:** Resolved `500 Internal Server Error` in `TablesController` (and other controllers) by stripping the `res-` prefix from `X-Restaurant-ID` header. This fixed the "New Order modal empty" issue.
+*   **Fix:** Adjusted Kitchen Receipt layout: Normal size bold text, "Dish" and "Berjumlah" headers, quantity on the right.
+
+---
+
+## 🟢 Session: 2026-01-07 (Morning)
 **Topic:** Multi-Restaurant Architecture, Inventory Restock, & UX Polish
 **Branches:** `main`
 

@@ -54,11 +54,7 @@ Refer to `GEMINI.md` for detailed agent instructions and development guidelines.
 
 ### Development Logs
 
-We maintain separate development logs for each component. Please verify and update these logs after significant changes:
-
-*   **Backend**: `dev-log-backend.md`
-*   **Frontend**: `dev-log-frontend.md`
-*   **Web Frontend**: `dev-log-web_frontend.md`
+We maintain development logs for each component in `DEVLOG.md` file, Please verify and update these logs after significant changes:
 
 ## Credentials
 
