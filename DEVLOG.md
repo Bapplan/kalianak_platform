@@ -1,6 +1,6 @@
 # 📜 Kalianak Platform - Master Dev Log
 
-## 🟢 Session: 2026-01-07 (Afternoon)
+## 🟢 Session: 2026-01-07 to 2026-01-10
 **Topic:** PWA, Offline Support, & UI Polish
 **Branches:** `main`
 
