@@ -8,10 +8,14 @@
 *   **Summary:** Transformed the application into a PWA with full offline capabilities and enhanced Order UI.
 *   **Details:**
     *   **PWA:** Configured `vite-plugin-pwa` for installability. Added manifest, icons, and meta tags.
-    *   **Offline Support:** Implemented `offlineService.ts` using IndexedDB (`idb`).
+    *   **Offline Support:** Implemented Basic/Experimental `offlineService.ts` using IndexedDB (`idb`).
         *   **Caching:** Network-first strategy for GET requests (Menu, Inventory, Orders).
         *   **Sync:** Optimistic UI for mutations. Offline POST/PUT/DELETE requests are queued in an `outbox` and automatically synced when back online via `window.addEventListener('online')`.
         *   **Pending Orders:** Implemented logic to merge locally queued "offline orders" into the main Orders List, allowing seamless operation without internet.
+        *   **Status:** Partial / Beta.
+        *   **Known Limitations:**
+            *   Complex offline workflows (e.g., creating an order and then immediately paying/editing it *while still offline*) are not supported due to temporary ID resolution limits.
+            *   Inventory Restock items added offline are queued but will not visibly appear in the "Pending Restock" list until re-connection and sync.
     *   **UI Improvements:**
         *   **Supplies:** Added Sorting (Name, Stock Low/High) to prevent items from jumping around during updates.
         *   **New Order Modal:** Added loading spinner and graceful empty states ("No categories found", "No items") to prevent the "empty modal" experience during data fetch or if 500 errors occur.
