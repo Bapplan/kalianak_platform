@@ -1,10 +1,11 @@
 # 📜 Kalianak Platform - Master Dev Log
 
 ## 🟢 Session: 2026-01-07 to 2026-01-10
-**Topic:** PWA, Offline Support, & UI Polish
+**Topic:** PWA, Offline Support, & UI Polish.  
 **Branches:** `main`
 
 ### 🎨 Frontend Changes
+*   **Commit:** `5d75653`
 *   **Summary:** Transformed the application into a PWA with full offline capabilities and enhanced Order UI.
 *   **Details:**
     *   **PWA:** Configured `vite-plugin-pwa` for installability. Added manifest, icons, and meta tags.
@@ -24,18 +25,20 @@
         *   **Dishes:** Populated initial menu items (Jus Alpukat, etc.).
 
 ### 🏗️ Backend Changes
+*   **Commit:** `a839e2a`
 *   **Fix:** Resolved `500 Internal Server Error` in `TablesController` (and other controllers) by stripping the `res-` prefix from `X-Restaurant-ID` header. This fixed the "New Order modal empty" issue.
+*   **Commit:** `70e6590`
 *   **Fix:** Adjusted Kitchen Receipt layout: Normal size bold text, "Dish" and "Berjumlah" headers, quantity on the right.
 
 ---
 
 ## 🟢 Session: 2026-01-07 (Morning)
-**Topic:** Multi-Restaurant Architecture, Inventory Restock, & UX Polish
+**Topic:** Multi-Restaurant Architecture, Inventory Restock, & UX Polish.
 **Branches:** `main`
 
 ### 🏗️ Backend Changes
-*   **Summary:** Implemented "Global Definitions, Local Stock" architecture and Restock workflows.
-*   **Details:**
+*   **Commit:** `9a81c27` (Root Reference Update)
+*   **Summary:** Implemented "Global Definitions, Local Stock" architecture and Restock workflows.*   **Details:**
     *   **Models:**
         *   Created `InventoryStock` to track stock per-restaurant (decoupling `Ingredient`/`Supplies` from specific restaurants).
         *   Added `restaurant` FK to `Order` and `RestockOrder` models to support multi-tenancy.

@@ -83,6 +83,7 @@ Maintenance of development logs is critical for project continuity.
     *   Metadata: `Topic`, `Branches`
     *   Subsections: `### 🌳 Root / Configuration`, `### 🏗️ Backend Changes`, `### 🎨 Frontend Changes`
     *   Content: Commit hash, Summary, and Details.
+    *   **Commit Hashes**: ALWAYS include the Git commit hash (short version, e.g., `8c4f650`) for every entry in DEVLOG.md to ensure traceability. Use `git log` to verify before writing.
 2.  **Timing**: Update `DEVLOG.md` at the end of every coding session or before a significant context switch.
 3.  **Content**: Merge backend and frontend updates into a single session block if they are related.
 
