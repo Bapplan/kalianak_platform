@@ -1,5 +1,33 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-01-21
+**Topic:** Monorepo Sync, Staff Management, & DaisyUI Integration.
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+*   **Commit:** (Pending)
+*   **Summary:** Added `web_frontend` to `docker-compose.yml` and synced submodules.
+*   **Details:**
+    *   **Docker:** Configured `web_frontend` service to run on port 3002 (mapped to internal 3000).
+    *   **Web Frontend:** Updated dependencies (`a629c66`).
+
+### 🎨 Frontend Changes
+*   **Commit:** `8bae2d3`
+*   **Summary:** Implemented Staff Management, integrated DaisyUI (Tailwind v4), and polished UI.
+*   **Details:**
+    *   **Staff Management:** Created `StaffManagement.tsx` with list view and edit modal.
+    *   **DaisyUI:** Installed local dependencies, configured `abyss` and `corporate` themes in `index.css`.
+    *   **Header:** Dynamic Role/Restaurant badges and Avatar support.
+    *   **Cleanup:** Removed CDN links and legacy config files.
+
+### 🏗️ Backend Changes
+*   **Commit:** `f47edf6`
+*   **Summary:** Forced English Admin UI and updated Staff API.
+*   **Details:**
+    *   **Admin:** Implemented `AdminLanguageMiddleware` to force English in `/admin/`.
+    *   **API:** Updated `StaffSchema` and `get_staff` to include `avatarUrl`.
+    *   **Scripts:** Added `populate_gurami_ingredients.py` and `populate_orders.py`.
+
 ## 🟢 Session: 2026-01-07 to 2026-01-10
 **Topic:** PWA, Offline Support, & UI Polish.  
 **Branches:** `main`

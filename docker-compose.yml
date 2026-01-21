@@ -55,6 +55,20 @@ services:
     depends_on:
       - backend
 
+  web_frontend:
+    container_name: ikan_bakar_web_frontend
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./web_frontend:/app
+    ports:
+      - "3002:3000"
+    command: sh -c "npm install && npm run dev -- --host"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
   ngrok:
     image: ngrok/ngrok:latest
     depends_on:
