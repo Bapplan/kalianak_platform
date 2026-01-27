@@ -7,3 +7,6 @@
 [submodule "web_frontend"]
 	path = web_frontend
 	url = https://github.com/Bapplan/kalianak_platform_web_frontend.gi
+[submodule "member_app"]
+	path = member_app
+	url = /Users/andershedborg/MEGA/Development/KalianakTech/projects/kalianak_platform/_arkiv/member_app_repo

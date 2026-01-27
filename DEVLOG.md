@@ -1,34 +1,92 @@
 # 📜 Kalianak Platform - Master Dev Log
 
-## 🟢 Session: 2026-01-21
-**Topic:** Monorepo Sync, Staff Management, & DaisyUI Integration.
+## 🟢 Session: 2026-01-27
+**Topic:** Member App Initialization
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Commit:** (Pending)
-*   **Summary:** Added `web_frontend` to `docker-compose.yml` and synced submodules.
+*   **Summary:** Added `member_app` as a git submodule.
 *   **Details:**
-    *   **Docker:** Configured `web_frontend` service to run on port 3002 (mapped to internal 3000).
-    *   **Web Frontend:** Updated dependencies (`a629c66`).
+    *   Initialized `member_app` submodule structure.
+    *   Updated `README.md` and `GEMINI.md` to include the new component.
+
+### 📱 Member App
+*   **Summary:** Initialized project structure and development plan.
+*   **Details:**
+    *   Created `DEV_PLAN.md` with a 5-phase execution strategy based on `member_app.md`.
+    *   Setup ready for React + Capacitor implementation.
+
+## 🟢 Session: 2026-01-21 (Evening)
+**Topic:** Expense Management, Payroll, and Financial Dashboard.
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+*   **Commit:** `6b21295`
+*   **Summary:** Integrated expense management and financial dashboard.
+*   **Details:**
+    *   **Submodules:** Updated `backend` and `frontend` references.
 
 ### 🎨 Frontend Changes
-*   **Commit:** `8bae2d3`
-*   **Summary:** Implemented Staff Management, integrated DaisyUI (Tailwind v4), and polished UI.
+*   **Commit:** `9cc7c77`
+*   **Summary:** Enhanced Restock Manager with real-time price calculations.
 *   **Details:**
-    *   **Staff Management:** Created `StaffManagement.tsx` with list view and edit modal.
-    *   **DaisyUI:** Installed local dependencies, configured `abyss` and `corporate` themes in `index.css`.
-    *   **Header:** Dynamic Role/Restaurant badges and Avatar support.
-    *   **Cleanup:** Removed CDN links and legacy config files.
+    *   **UI:** Added "Price/Unit" and "Total Price" columns to the Restock table.
+    *   **Logic:** Implemented optimistic total cost calculation in `RestockItemRow`.
+    *   **Feedback:** Added "Estimated Cost" to the stats summary.
 
 ### 🏗️ Backend Changes
-*   **Commit:** `f47edf6`
-*   **Summary:** Forced English Admin UI and updated Staff API.
+*   **Commit:** `297b15f`
+*   **Summary:** Integrated Inventory Restock with Expense Management.
 *   **Details:**
-    *   **Admin:** Implemented `AdminLanguageMiddleware` to force English in `/admin/`.
-    *   **API:** Updated `StaffSchema` and `get_staff` to include `avatarUrl`.
-    *   **Scripts:** Added `populate_gurami_ingredients.py` and `populate_orders.py`.
+    *   **API:** Updated `complete_restock` to calculate total order cost and automatically create an `Expense` record (Debit: Inventory Purchase, Credit: Asset).
+    *   **Schemas:** Added `price_per_unit` and `total_price` to `RestockItemSchema`.
+    *   **Logic:** Fixed stock updates to correctly reference global definitions.
 
-## 🟢 Session: 2026-01-07 to 2026-01-10
+### 🎨 Frontend Changes
+*   **Commit:** `cce9f3a`
+*   **Fix:** Resolved `422 Unprocessable Content` when updating staff by sanitizing `date_of_birth` (converting empty strings to null).
+*   **Fix:** Fixed `TypeError: showToast is not a function` by using the correct `toast` helper from `useToast`.
+*   **Commit:** `8b4a441`
+*   **Summary:** Implemented Full CRUD Staff Management UI.
+*   **Details:**
+    *   **StaffManagement.tsx:** Refactored to support Create, Read, Update, and Delete operations.
+    *   **UI:** Added detailed user cards showing phone, active status, and salary/compensation details for Staff/Manager roles.
+    *   **Modal:** Created a comprehensive form for managing user account, personal details, and employment terms (Salary/Hourly).
+    *   **Services:** Updated `apiService.ts` and `types.ts` to support expanded Staff data and CRUD methods.
+
+### 🏗️ Backend Changes
+*   **Commit:** `44deecd`
+*   **Summary:** Enhanced Staff API with CRUD and detailed schemas.
+*   **Details:**
+    *   **Models:** Added `MANAGER` choice to `StaffRole` enum.
+    *   **API:** Updated `UsersController` with `create_staff`, `update_staff`, and `delete_staff` endpoints.
+    *   **Services:** Implemented `StaffService` to handle transactional creation/updating of `User`, `StaffMember`, and `StaffEmployment` records.
+    *   **Schemas:** Expanded `StaffDetailSchema`, `StaffCreateSchema`, and `StaffUpdateSchema` to include full profile and employment details.
+
+### 🏗️ Backend Changes
+*   **Commit:** `c8573ef`
+*   **Summary:** Implemented Expense Management, Payroll automation, and Financial Report APIs.
+*   **Details:**
+    *   **Expenses App:** Created new app `apps.expenses` with `Expense` and `ExpenseCategory` models.
+    *   **Integration:** Linked expenses to the double-entry `bank` system. Each `Expense` creates a corresponding `Transaction` in the ledger.
+    *   **Payroll:** Created `PayrollService` to automate salary generation. It creates `StaffPayroll` records and `Expense` entries, deducting from the selected Asset account.
+    *   **Financial Intelligence:** 
+        *   Added `get_financial_report` to `BankController` calculating Gross Profit (Revenue - Theoretical COGS) and Net Profit (Gross Profit - OpEx).
+        *   Added `get_cash_flow` to `BankController` for daily balance tracking across all asset accounts.
+    *   **API:** Registered `ExpenseController` and updated `UsersController` with `run-payroll` endpoint.
+
+### 🎨 Frontend Changes
+*   **Commit:** `6ae4b37`
+*   **Summary:** Added Finance Dashboard and Expense Management UI.
+*   **Details:**
+    *   **View:** Created `Finance.tsx` component as a central hub for P&L and Cash Flow.
+    *   **Dashboard:** Visualized Gross Revenue, Theoretical COGS, Gross Profit, and Net Profit. Added a simplified daily Cash Flow chart.
+    *   **Expense Logging:** Implemented a modal for manual operational expense entry.
+    *   **Payroll:** Added "Run Payroll" button with confirmation and payment account selection.
+    *   **Service:** Updated `apiService.ts` and `types.ts` with new finance-related methods and interfaces.
+    *   **Navigation:** Added "Finance & P&L" link to the Sidebar.
+
+## 🟢 Session: 2026-01-21 (Morning)
 **Topic:** PWA, Offline Support, & UI Polish.  
 **Branches:** `main`
 

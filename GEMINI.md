@@ -18,6 +18,10 @@ The project is transitioning to a monorepo-style structure:
     *   **State/Data**: Will interact with Backend via API.
 *   **`web_frontend/`**:
     *   Main website (currently out of scope for the POS merge).
+*   **`member_app/`**:
+    *   Mobile loyalty app.
+    *   **Framework**: React 19 + Capacitor + Konsta UI.
+    *   **Styling**: TailwindCSS.
 
 ## Technology Stack
 

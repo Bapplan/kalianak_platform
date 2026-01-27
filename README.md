@@ -17,6 +17,9 @@ This is the central monorepo for the **Kalianak Platform**, unifying the backend
     *   Interacts with the backend API.
 *   **`web_frontend/`** (`kalianak_platform_web_frontend`):
     *   Public-facing website for customers.
+*   **`member_app/`** (`kalianak_member_app`):
+    *   Mobile app for customers (Loyalty & Ordering).
+    *   Built with React, Capacitor, and Konsta UI.
 
 ## Getting Started
 
