@@ -1,20 +1,36 @@
 # 📜 Kalianak Platform - Master Dev Log
 
 ## 🟢 Session: 2026-01-27
-**Topic:** Member App Initialization
+**Topic:** Member App Initialization & MVP Implementation
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Summary:** Added `member_app` as a git submodule.
+*   **Commit:** `63f2a03`
+*   **Summary:** Added `member_app` as a git submodule and configured backend support.
 *   **Details:**
-    *   Initialized `member_app` submodule structure.
-    *   Updated `README.md` and `GEMINI.md` to include the new component.
+    *   **Submodules:** Initialized `member_app` submodule structure.
+    *   **Documentation:** Updated `README.md` and `GEMINI.md` to include the new component.
 
-### 📱 Member App
-*   **Summary:** Initialized project structure and development plan.
+### 📱 Member App (Frontend)
+*   **Summary:** Implemented full MVP with React + Capacitor + Konsta UI.
 *   **Details:**
-    *   Created `DEV_PLAN.md` with a 5-phase execution strategy based on `member_app.md`.
-    *   Setup ready for React + Capacitor implementation.
+    *   **Tech Stack:** React 19, TypeScript, Tailwind CSS, Konsta UI, Capacitor 8, Zustand.
+    *   **Features:**
+        *   **Login:** Glass-morphic UI with simulated OTPless integration.
+        *   **Home:** Immersive live video background, member card (Points/Tier), and quick actions.
+        *   **Menu:** Searchable menu with categories, cart management (Zustand), and real-time stock checks.
+        *   **History:** Order history grouped by month with detailed receipt view.
+        *   **Profile:** Dynamic user profile with QR Code generation for POS scanning.
+    *   **Deployment:** Configured for Android and iOS builds (`BUILD.md`).
+
+### 🏗️ Backend Changes
+*   **Summary:** Added Customer Loyalty support and Mobile API endpoints.
+*   **Details:**
+    *   **Models:** Added `Customer` model (Points, Tier) linked to User.
+    *   **API:**
+        *   Created `AuthController` for customer login and profile management.
+        *   Added `/api/orders/my-orders/` endpoint for customer history.
+    *   **Configuration:** Updated `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS`, and `CSRF_TRUSTED_ORIGINS` to support mobile devices and simulators (including local network access).
 
 ## 🟢 Session: 2026-01-21 (Evening)
 **Topic:** Expense Management, Payroll, and Financial Dashboard.
