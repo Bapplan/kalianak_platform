@@ -1,5 +1,41 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-18
+**Topic:** Capacitor Integration & VPS Deployment Preparation
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+*   **Commit:** `b1bd2fe`
+*   **Summary:** Created `session-manager` skill, production Docker Compose, and fixed submodule issues.
+*   **Details:**
+    *   **Skill:** Developed and packaged `session-manager.skill` to automate session closure, devlog updates, and repository syncing.
+    *   **Submodules:** Fixed typo in `.gitmodules` for `web_frontend` URL and synced configuration.
+    *   **Infra:** Created `docker-compose.prod.yml` configured for VPS deployment using a shared `webproxy` network.
+    *   **Cleanup:** Removed `ngrok` container from the main configuration in favor of VPS hosting.
+
+### 🎨 Frontend Changes
+*   **Commit:** `9f2d198` (Capacitor), `39ae4c8` (Mellanlandning)
+*   **Summary:** Integrated Capacitor for iOS/Android and added production build config.
+*   **Details:**
+    *   **Mobile:** Installed Capacitor core and platforms. Initialized `com.kalianak.pos`.
+    *   **UX:** Added `viewport-fit=cover` and CSS safe-area constants to handle notches.
+    *   **Plugins:** Integrated `StatusBar`, `SplashScreen`, and `Keyboard` plugins.
+    *   **Logic:** Updated `apiService.ts` to dynamically use absolute API URLs (ngrok/VPS) when running on native platforms to resolve connectivity issues.
+    *   **Deployment:** Created `Dockerfile.prod` for multi-stage production builds using Nginx.
+
+### 🌐 Web Frontend Changes
+*   **Commit:** `d8d60f7`
+*   **Summary:** Added production build support and VPS integration.
+*   **Details:**
+    *   **Deployment:** Created `Dockerfile.prod` to serve the app via Nginx in production.
+    *   **Infra:** Integrated service into the production Docker Compose configuration.
+
+### 🏗️ Backend Changes
+*   **Commit:** `ad07e83`
+*   **Summary:** Minor fixes and settings verification for mobile/prod connectivity.
+
+---
+
 ## 🟢 Session: 2026-01-27
 **Topic:** Member App Initialization & MVP Implementation
 **Branches:** `main`
