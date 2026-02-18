@@ -69,10 +69,11 @@ The project is now a **Monorepo** using Git Submodules.
     *   `backend` -> `kalianak_platform_backend`
     *   `frontend` -> `kalianak_platform_frontend`
     *   `web_frontend` -> `kalianak_platform_web_frontend`
+    *   `member_app` -> `kalianak_platform_member_app`
 
 **Agent Instructions for Git:**
 1.  **Submodules**: When pulling the repo, always ensure submodules are updated (`git submodule update --init --recursive`).
-2.  **Committing**: Changes within `backend/` or `frontend/` must be committed **inside** those directories first. Then, the updated submodule reference must be committed in the root repository.
+2.  **Committing**: Changes within `backend/`, `frontend/`, `web_frontend/`, or `member_app/` must be committed **inside** those directories first. Then, the updated submodule reference must be committed in the root repository.
 3.  **MCP tools** Always check for available MCP tools and select the most appropriate one for the task at hand.
 
 ## Documentation & Dev Logs
@@ -85,11 +86,11 @@ Maintenance of development logs is critical for project continuity.
 1.  **Style**: Follow the "Unified Chronological" format.
     *   Header: `## 🟢 Session: YYYY-MM-DD`
     *   Metadata: `Topic`, `Branches`
-    *   Subsections: `### 🌳 Root / Configuration`, `### 🏗️ Backend Changes`, `### 🎨 Frontend Changes`
+    *   Subsections: `### 🌳 Root / Configuration`, `### 🏗️ Backend Changes`, `### 🎨 Frontend Changes`, `### 🌐 Web Frontend Changes`, `### 📱 Member App Changes`
     *   Content: Commit hash, Summary, and Details.
     *   **Commit Hashes**: ALWAYS include the Git commit hash (short version, e.g., `8c4f650`) for every entry in DEVLOG.md to ensure traceability. Use `git log` to verify before writing.
 2.  **Timing**: Update `DEVLOG.md` at the end of every coding session or before a significant context switch.
-3.  **Content**: Merge backend and frontend updates into a single session block if they are related.
+3.  **Content**: Merge all submodule updates (backend, frontend, web_frontend, member_app) into a single session block if they are related.
 
 **Superuser**
 *   **Username**: `admin`
