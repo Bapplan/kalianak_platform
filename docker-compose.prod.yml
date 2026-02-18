@@ -9,7 +9,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    # No port mapping needed for host if backend uses the name 'db'
     volumes:
       - kalianak_db_data:/var/lib/postgresql/data
     healthcheck:
@@ -40,6 +39,12 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       DJANGO_DEBUG: "False"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kalianak-backend.rule=Host(`api-pos.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.kalianak-backend.entrypoints=websecure"
+      - "traefik.http.routers.kalianak-backend.tls.certresolver=myresolver"
+      - "traefik.http.services.kalianak-backend.loadbalancer.server.port=8000"
 
   frontend:
     container_name: kalianak_frontend
@@ -52,6 +57,12 @@ services:
     networks:
       - kalianak_internal
       - webproxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kalianak-pos.rule=Host(`pos.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.kalianak-pos.entrypoints=websecure"
+      - "traefik.http.routers.kalianak-pos.tls.certresolver=myresolver"
+      - "traefik.http.services.kalianak-pos.loadbalancer.server.port=80"
 
   web_frontend:
     container_name: kalianak_web_frontend
@@ -64,6 +75,12 @@ services:
     networks:
       - kalianak_internal
       - webproxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kalianak-web.rule=Host(`www.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.kalianak-web.entrypoints=websecure"
+      - "traefik.http.routers.kalianak-web.tls.certresolver=myresolver"
+      - "traefik.http.services.kalianak-web.loadbalancer.server.port=80"
 
 networks:
   kalianak_internal:

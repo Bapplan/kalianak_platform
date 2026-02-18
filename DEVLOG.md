@@ -1,38 +1,40 @@
 # 📜 Kalianak Platform - Master Dev Log
 
 ## 🟢 Session: 2026-02-18
-**Topic:** Capacitor Integration & VPS Deployment Preparation
+**Topic:** Capacitor Integration & VPS Traefik Deployment
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Commit:** `b1bd2fe`
-*   **Summary:** Created `session-manager` skill, production Docker Compose, and fixed submodule issues.
+*   **Commit:** `[LATEST]`
+*   **Summary:** Finalized production Docker configuration with Traefik integration.
 *   **Details:**
-    *   **Skill:** Developed and packaged `session-manager.skill` to automate session closure, devlog updates, and repository syncing.
-    *   **Submodules:** Fixed typo in `.gitmodules` for `web_frontend` URL and synced configuration.
-    *   **Infra:** Created `docker-compose.prod.yml` configured for VPS deployment using a shared `webproxy` network.
-    *   **Cleanup:** Removed `ngrok` container from the main configuration in favor of VPS hosting.
+    *   **Skill:** Developed and packaged `session-manager.skill` to automate session closure.
+    *   **Infra:** Updated `docker-compose.prod.yml` with Traefik labels for `pos`, `api-pos`, and `www` subdomains.
+    *   **Proxy:** Created dedicated `nginx.conf` files for frontend services to handle SPA routing and API proxying reliably.
 
 ### 🎨 Frontend Changes
-*   **Commit:** `9f2d198` (Capacitor), `39ae4c8` (Mellanlandning)
-*   **Summary:** Integrated Capacitor for iOS/Android and added production build config.
+*   **Commit:** `6a87237`
+*   **Summary:** Integrated Capacitor and prepared for production deployment.
 *   **Details:**
     *   **Mobile:** Installed Capacitor core and platforms. Initialized `com.kalianak.pos`.
-    *   **UX:** Added `viewport-fit=cover` and CSS safe-area constants to handle notches.
-    *   **Plugins:** Integrated `StatusBar`, `SplashScreen`, and `Keyboard` plugins.
-    *   **Logic:** Updated `apiService.ts` to dynamically use absolute API URLs (ngrok/VPS) when running on native platforms to resolve connectivity issues.
-    *   **Deployment:** Created `Dockerfile.prod` for multi-stage production builds using Nginx.
+    *   **UX:** Added `viewport-fit=cover`, safe-area CSS, and `SplashScreen` auto-hide logic.
+    *   **Logic:** Updated `apiService.ts` to use `https://api-pos.ikanbakarkalianak.store` when running on native platforms.
+    *   **Build:** Created `Dockerfile.prod` using multi-stage builds and Nginx.
 
 ### 🌐 Web Frontend Changes
-*   **Commit:** `d8d60f7`
-*   **Summary:** Added production build support and VPS integration.
-*   **Details:**
-    *   **Deployment:** Created `Dockerfile.prod` to serve the app via Nginx in production.
-    *   **Infra:** Integrated service into the production Docker Compose configuration.
+*   **Commit:** `2c208ed`
+*   **Summary:** Added production build support and Nginx configuration.
 
 ### 🏗️ Backend Changes
-*   **Commit:** `ad07e83`
-*   **Summary:** Minor fixes and settings verification for mobile/prod connectivity.
+*   **Commit:** `d9dad62`
+*   **Summary:** Updated security settings for production domains.
+*   **Details:**
+    *   **Security:** Added production subdomains to `CSRF_TRUSTED_ORIGINS` and `CORS_ALLOWED_ORIGINS`.
+    *   **Stability:** Pinned `uv` version in `Dockerfile` to 0.5.29 to resolve metadata issues.
+
+### 📱 Member App Changes
+*   **Commit:** `96d35c7`
+*   **Summary:** Updated API URL to point to the production backend.
 
 ---
 
