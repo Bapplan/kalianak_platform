@@ -53,6 +53,18 @@ services:
       - kalianak_internal
       - webproxy
 
+  web_frontend:
+    container_name: kalianak_web_frontend
+    build:
+      context: ./web_frontend
+      dockerfile: Dockerfile.prod
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - kalianak_internal
+      - webproxy
+
 networks:
   kalianak_internal:
   webproxy:
