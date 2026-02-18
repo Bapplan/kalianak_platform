@@ -6,7 +6,7 @@
 	url = https://github.com/Bapplan/kalianak_platform_frontend.git
 [submodule "web_frontend"]
 	path = web_frontend
-	url = https://github.com/Bapplan/kalianak_platform_web_frontend.gi
+	url = https://github.com/Bapplan/kalianak_platform_web_frontend.git
 [submodule "member_app"]
 	path = member_app
 	url = https://github.com/Bapplan/kalianak_platform_member_app.git

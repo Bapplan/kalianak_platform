@@ -1,0 +1,167 @@
+services:
+  #! traefik
+  traefik:
+    image: traefik:latest
+    environment:
+      - CF_DNS_API_TOKEN=1JD2iCa9Y2arESKaEIZxAMgv97RefLepGyQVEQox
+    command:
+      - --api.dashboard=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+
+      # --- DNS CHALLENGE SETTINGS (Replacing HTTP Challenge) ---
+      - --certificatesresolvers.myresolver.acme.dnschallenge=true
+      - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
+      # (Optional) Use Staging server first to avoid rate limits while testing:
+      # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+
+      - --certificatesresolvers.myresolver.acme.email=admin@ikanbakarkalianak.store
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt:/letsencrypt
+    restart: always
+    
+  #! db (Database)
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    
+    env_file:
+      - .env.production
+    volumes:
+      - postgres_data_17:/var/lib/postgresql/data
+    restart: always
+  
+  #! redis (Cache)
+  redis:
+    image: redis:7-alpine
+    restart: always
+
+  #! minio (Object Storage)
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    env_file:
+      - .env.production
+    volumes:
+      - minio_data:/data
+    restart: always
+    labels:
+    - "traefik.enable=true"
+    # Console (Web UI)
+    - "traefik.http.routers.minio-console.rule=Host(`minio.ikanbakarkalianak.store`)"
+    - "traefik.http.routers.minio-console.entrypoints=websecure"
+    - "traefik.http.routers.minio-console.tls.certresolver=myresolver"
+    - "traefik.http.routers.minio-console.service=minio-console"
+    - "traefik.http.services.minio-console.loadbalancer.server.port=9001"
+
+    # API (S3 Endpoint for the app) - DNS record for s3.ikanbakarkalianak.store
+    - "traefik.http.routers.minio-api.rule=Host(`s3.ikanbakarkalianak.store`)"
+    - "traefik.http.routers.minio-api.entrypoints=websecure"
+    - "traefik.http.routers.minio-api.tls.certresolver=myresolver"
+    - "traefik.http.routers.minio-api.service=minio-api"
+    - "traefik.http.services.minio-api.loadbalancer.server.port=9000"
+  
+  #! Django backend
+  backend:
+    build:
+      context: ./c_app_backend
+    env_file:
+      - .env.production
+    depends_on:
+      - db
+      - redis
+      - minio
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+
+      # NEW RULE: Catch /api requests on the APP subdomain
+      - "traefik.http.routers.backend-internal.rule=Host(`app.ikanbakarkalianak.store`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend-internal.entrypoints=websecure"
+      - "traefik.http.routers.backend-internal.tls.certresolver=myresolver"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
+      
+  #! MCP Server (SSE)
+  mcp-server:
+    build:
+      context: ./c_app_backend
+    command: uv run manage.py run_mcp --transport sse --port 8001
+    ports:
+    - "8001:8001"
+    env_file:
+      - .env.production
+    depends_on:
+      - backend
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mcp.rule=Host(`mcp.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.mcp.entrypoints=websecure"
+      - "traefik.http.routers.mcp.tls.certresolver=myresolver"
+      - "traefik.http.services.mcp.loadbalancer.server.port=8001"
+  
+  #! LibreTranslate (Translation Service)
+  libretranslate:
+    build:
+      context: ./LibreTranslate
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+
+  #! Cici - LiveKit Agent (C-App Assistant)
+  c_app_voice_agent:
+    build:
+      context: ./c_app_voice_agent
+    env_file:
+      - .env.production
+    depends_on:
+      - backend
+    restart: always
+  
+  #! React frontend
+  frontend:
+    build:
+      context: ./c_app_frontend
+      dockerfile: Dockerfile
+    env_file:
+      - .env.production
+    depends_on:
+      - backend
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`app.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+  
+  #! n8n (Workflow Automation)
+  n8n:
+    image: n8nio/n8n:latest
+    env_file:
+      - .env.production
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.ikanbakarkalianak.store`)"
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=myresolver"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+
+#! Volumes
+volumes:
+  postgres_data_17:
+  minio_data:
+  n8n_data:
