@@ -45,10 +45,10 @@ cd kalianak_platform
 git submodule update --init --recursive
 ```
 
-2. **Environment Configuration**:
+1. **Environment Configuration**:
     * Copy `.env.example` to `.env` (if available) or create a `.env` file in the root directory based on the project documentation in `GEMINI.md`.
 
-3. **Run with Docker**:
+2. **Run with Docker**:
     The entire platform can be orchestrated from the root:
 
 ```bash
@@ -74,7 +74,8 @@ We maintain development logs for each component in `DEVLOG.md` file, Please veri
 uv run printer_bridge.py
 ```
 
-## root user (superuser)
+## Admin user (superuser)
 
-Username: root
-Pass: NiSS330011++
+* **Username**: `admin`
+* **Password**: `NiSS330011`
+* **Email**: `admin@ikanbakarkalianak.com`

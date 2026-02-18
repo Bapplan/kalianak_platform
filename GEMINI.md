@@ -51,19 +51,10 @@ The project is transitioning to a monorepo-style structure:
 1.  **Context Awareness**: Always check `GEMINI.md` and `README.md` for the latest architecture.
 2.  **Tool Usage**: Prefer specific tools (`search_file_content`, `read_file`) over generic shell commands when exploring.
 3.  **Documentation**:
-    *   Update `dev_log.md` (in root or respective subfolders) after significant changes.
     *   Keep `README.md` updated with setup instructions.
 4.  **Migration specific**:
     *   When moving files, ensure imports are updated.
     *   Verify Docker paths after restructuring.
 
-## Current Task: The Merge
-We are currently merging `ikan_bakar_pos` and `ikan_bakar_pos_frontend` into `backend` and `frontend` directories, respectively, and unifying the Docker setup.
-
 ## Session Management
 Use the `session-manager` skill to end sessions, update `DEVLOG.md`, and sync all repositories.
-
-**Superuser**
-*   **Username**: `admin`
-*   **Password**: `NiSS330011`
-*   **Email**: `admin@ikanbakarkalianak.com`

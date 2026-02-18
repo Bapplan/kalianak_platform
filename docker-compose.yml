@@ -69,22 +69,6 @@ services:
     depends_on:
       - backend
 
-  ngrok:
-    image: ngrok/ngrok:latest
-    depends_on:
-      - backend
-    command:
-      - "http"
-      - "frontend:3000"
-      - "--authtoken=${NGROK_AUTH}"
-      - "--domain=${NGROK_DOMAIN}"
-      - "--log=stdout"
-      - "--log-level=debug"
-    env_file:
-      - .env
-    ports:
-      - "4040:4040"
-
 volumes:
   db_data_fresh:
   backend_media_fresh:

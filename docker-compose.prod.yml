@@ -1,0 +1,64 @@
+services:
+  db:
+    container_name: kalianak_db
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # No port mapping needed for host if backend uses the name 'db'
+    volumes:
+      - kalianak_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kalianak_internal
+
+  backend:
+    container_name: kalianak_backend
+    build: ./backend
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - kalianak_media:/app/media
+      - kalianak_static:/app/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - kalianak_internal
+      - webproxy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      DB_HOST: db
+      DB_PORT: 5432
+      DJANGO_DEBUG: "False"
+
+  frontend:
+    container_name: kalianak_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - kalianak_internal
+      - webproxy
+
+networks:
+  kalianak_internal:
+  webproxy:
+    external: true
+
+volumes:
+  kalianak_db_data:
+  kalianak_media:
+  kalianak_static:
