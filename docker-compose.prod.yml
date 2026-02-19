@@ -41,6 +41,7 @@ services:
       DJANGO_DEBUG: "False"
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=webproxy"
       - "traefik.http.routers.kalianak-backend.rule=Host(`api-pos.ikanbakarkalianak.store`)"
       - "traefik.http.routers.kalianak-backend.entrypoints=websecure"
       - "traefik.http.routers.kalianak-backend.tls.certresolver=myresolver"
@@ -59,6 +60,7 @@ services:
       - webproxy
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=webproxy"
       - "traefik.http.routers.kalianak-pos.rule=Host(`pos.ikanbakarkalianak.store`)"
       - "traefik.http.routers.kalianak-pos.entrypoints=websecure"
       - "traefik.http.routers.kalianak-pos.tls.certresolver=myresolver"
@@ -77,6 +79,7 @@ services:
       - webproxy
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=webproxy"
       - "traefik.http.routers.kalianak-web.rule=Host(`www.ikanbakarkalianak.store`)"
       - "traefik.http.routers.kalianak-web.entrypoints=websecure"
       - "traefik.http.routers.kalianak-web.tls.certresolver=myresolver"
