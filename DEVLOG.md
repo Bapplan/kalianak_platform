@@ -1,40 +1,37 @@
 # 📜 Kalianak Platform - Master Dev Log
 
 ## 🟢 Session: 2026-02-18
-**Topic:** Capacitor Integration & VPS Traefik Deployment
+**Topic:** Capacitor Integration & Successful VPS Traefik Deployment
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Commit:** `[LATEST]`
-*   **Summary:** Finalized production Docker configuration with Traefik integration.
+*   **Commit:** `5b4e2d4`
+*   **Summary:** Achieved full production deployment on VPS with Traefik and database migration.
 *   **Details:**
-    *   **Skill:** Developed and packaged `session-manager.skill` to automate session closure.
-    *   **Infra:** Updated `docker-compose.prod.yml` with Traefik labels for `pos`, `api-pos`, and `www` subdomains.
-    *   **Proxy:** Created dedicated `nginx.conf` files for frontend services to handle SPA routing and API proxying reliably.
+    *   **Infra:** Finalized `docker-compose.prod.yml` with `traefik.docker.network=webproxy` to resolve 504 Gateway Timeouts.
+    *   **Proxy:** Implemented dedicated `nginx.conf` files for both frontends to ensure reliable routing and API proxying.
+    *   **Database:** Successfully migrated data from local Docker to VPS using `pg_dump` and `psql` scripts.
+    *   **Skill:** Created `session-manager.skill` for automated workflow management.
 
 ### 🎨 Frontend Changes
-*   **Commit:** `6a87237`
-*   **Summary:** Integrated Capacitor and prepared for production deployment.
+*   **Commit:** `e5c8039`
+*   **Summary:** Mobile ready and connected to production.
 *   **Details:**
-    *   **Mobile:** Installed Capacitor core and platforms. Initialized `com.kalianak.pos`.
-    *   **UX:** Added `viewport-fit=cover`, safe-area CSS, and `SplashScreen` auto-hide logic.
-    *   **Logic:** Updated `apiService.ts` to use `https://api-pos.ikanbakarkalianak.store` when running on native platforms.
-    *   **Build:** Created `Dockerfile.prod` using multi-stage builds and Nginx.
-
-### 🌐 Web Frontend Changes
-*   **Commit:** `2c208ed`
-*   **Summary:** Added production build support and Nginx configuration.
+    *   **Mobile:** Completed Capacitor integration for iOS/Android.
+    *   **Connectivity:** Fixed production API routing in `apiService.ts` for native environments.
+    *   **UX:** Handled safe-areas and integrated auto-hiding SplashScreen.
 
 ### 🏗️ Backend Changes
-*   **Commit:** `d9dad62`
-*   **Summary:** Updated security settings for production domains.
+*   **Commit:** `3f5fb83`
+*   **Summary:** Fixed critical migration and security issues for production.
 *   **Details:**
-    *   **Security:** Added production subdomains to `CSRF_TRUSTED_ORIGINS` and `CORS_ALLOWED_ORIGINS`.
-    *   **Stability:** Pinned `uv` version in `Dockerfile` to 0.5.29 to resolve metadata issues.
+    *   **Migration Fix:** Resolved a `unique_together` conflict in the `inventory` app that crashed the VPS build.
+    *   **Security:** Configured `NINJA_SKIP_CSRF` and `ALLOWED_HOSTS` for production subdomains (`pos.`, `api-pos.`).
+    *   **Docker:** Fixed missing source code (`COPY . .`) in the production Dockerfile.
 
 ### 📱 Member App Changes
 *   **Commit:** `96d35c7`
-*   **Summary:** Updated API URL to point to the production backend.
+*   **Summary:** Pointed to production API.
 
 ---
 
