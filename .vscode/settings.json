@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "asgi",
+        "certresolver",
         "collectstatic",
         "corsheaders",
         "healthcheck",
@@ -12,6 +13,7 @@
         "lqbo",
         "makemigrations",
         "mypy",
+        "myresolver",
         "nextjs",
         "noinput",
         "pyproject",
@@ -20,6 +22,7 @@
         "startapp",
         "staticfiles",
         "trid",
+        "websecure",
         "wsgi"
     ],
     "windowColor.mainColor": "#e4740c",

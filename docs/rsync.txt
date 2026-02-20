@@ -1,0 +1,7 @@
+rsync -avz --exclude '.venv' \
+           --exclude 'node_modules' \
+           --exclude '__pycache__' \
+           --exclude '.git' \
+           --exclude 'dist' \
+           frontend backend member_app web_frontend \
+           anders@109.205.177.108:/opt/kalianak/

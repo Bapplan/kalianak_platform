@@ -1,0 +1,16 @@
+anders@vmi3083326:/opt/infra$ docker ps
+CONTAINER ID   IMAGE                     COMMAND                  CREATED        STATUS                            PORTS                                                                          NAMES
+d9f165c9c0f8   infra-mcp-server          "uv run manage.py ru…"   9 hours ago    Up 7 seconds (health: starting)   8000/tcp, 0.0.0.0:8001->8001/tcp, [::]:8001->8001/tcp                          infra-mcp-server-1
+dafeeb091c49   infra-frontend            "/docker-entrypoint.…"   9 hours ago    Up 9 hours                        80/tcp                                                                         infra-frontend-1
+cbfa33a3b8d1   infra-c_app_voice_agent   "python agent.py dev"    9 hours ago    Up 9 hours                                                                                                       infra-c_app_voice_agent-1
+63f930cb4840   infra-backend             "uv run daphne -b 0.…"   9 hours ago    Up 9 hours (healthy)              8000/tcp                                                                       infra-backend-1
+c3aebcb73fac   infra-db                  "docker-entrypoint.s…"   9 hours ago    Up 9 hours                        5432/tcp                                                                       infra-db-1
+fbb6b1bd0273   infra-libretranslate      "./scripts/entrypoin…"   9 hours ago    Up 9 hours                        5000/tcp                                                                       infra-libretranslate-1
+5029bb49681f   traefik:latest            "/entrypoint.sh --ap…"   10 hours ago   Up 10 hours                       0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp   infra-traefik-1
+a59cb02cca95   kalianak-frontend         "/docker-entrypoint.…"   16 hours ago   Up 16 hours                       80/tcp                                                                         kalianak_frontend
+416e845caa17   kalianak-web_frontend     "/docker-entrypoint.…"   16 hours ago   Up 16 hours                       80/tcp                                                                         kalianak_web_frontend
+a7db1efd2362   kalianak-backend          "/entrypoint.sh"         16 hours ago   Up 16 hours                       8000/tcp                                                                       kalianak_backend
+1947367eeae6   postgres:15-alpine        "docker-entrypoint.s…"   17 hours ago   Up 17 hours (healthy)             5432/tcp                                                                       kalianak_db
+f5c2c2a50804   n8nio/n8n:latest          "tini -- /docker-ent…"   2 days ago     Up 2 days                         5678/tcp                                                                       infra-n8n-1
+b3fc3e449331   minio/minio:latest        "/usr/bin/docker-ent…"   2 days ago     Up 2 days                         9000/tcp                                                                       infra-minio-1
+df51b4a551ea   redis:7-alpine            "docker-entrypoint.s…"   3 days ago     Up 2 days                         6379/tcp                                                                       infra-redis-1
