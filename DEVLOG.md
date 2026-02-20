@@ -1,37 +1,59 @@
 # 📜 Kalianak Platform - Master Dev Log
 
-## 🟢 Session: 2026-02-18
-**Topic:** Capacitor Integration & Successful VPS Traefik Deployment
+## 🟢 Session: 2026-02-18 (Session 2)
+**Topic:** Final Production Fixes & Successful Launch
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+*   **Commit:** `9db8f48`
+*   **Summary:** Finalized VPS deployment configuration and resolved network routing.
+*   **Details:**
+    *   **Infra:** Fixed Traefik 504 errors by adding `traefik.docker.network` labels.
+    *   **Automation:** Refined the `session-manager` skill with strict "never overwrite" rules.
+    *   **Database:** Successfully migrated local data to the production VPS database.
+
+### 🏗️ Backend Changes
+*   **Commit:** `3d34efb`
+*   **Summary:** Critical fixes for production image and API security.
+*   **Details:**
+    *   **Docker:** Fixed missing source code in production image by adding `COPY . .`.
+    *   **API:** Disabled CSRF for Ninja API to support cross-subdomain requests from the POS dashboard.
+
+### 🎨 Frontend Changes
+*   **Commit:** `e5c8039`
+*   **Summary:** Production proxy and mobile optimization.
+*   **Details:**
+    *   **Proxy:** Updated `nginx.conf` to use the correct service name for the backend.
+    *   **UX:** Initialized SplashScreen auto-hide logic for the mobile app.
+
+---
+
+## 🟢 Session: 2026-02-18 (Session 1)
+**Topic:** Capacitor Integration & VPS Traefik Deployment
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
 *   **Commit:** `5b4e2d4`
-*   **Summary:** Achieved full production deployment on VPS with Traefik and database migration.
+*   **Summary:** Initial production Docker configuration and Capacitor setup.
 *   **Details:**
-    *   **Infra:** Finalized `docker-compose.prod.yml` with `traefik.docker.network=webproxy` to resolve 504 Gateway Timeouts.
-    *   **Proxy:** Implemented dedicated `nginx.conf` files for both frontends to ensure reliable routing and API proxying.
-    *   **Database:** Successfully migrated data from local Docker to VPS using `pg_dump` and `psql` scripts.
-    *   **Skill:** Created `session-manager.skill` for automated workflow management.
+    *   **Skill:** Developed and packaged `session-manager.skill`.
+    *   **Infra:** Created `docker-compose.prod.yml` with Traefik integration.
+    *   **Proxy:** Implemented `nginx.conf` for frontend services.
 
 ### 🎨 Frontend Changes
-*   **Commit:** `e5c8039`
-*   **Summary:** Mobile ready and connected to production.
+*   **Commit:** `6a87237`
+*   **Summary:** Integrated Capacitor and prepared for production deployment.
 *   **Details:**
     *   **Mobile:** Completed Capacitor integration for iOS/Android.
-    *   **Connectivity:** Fixed production API routing in `apiService.ts` for native environments.
-    *   **UX:** Handled safe-areas and integrated auto-hiding SplashScreen.
+    *   **Connectivity:** Fixed production API routing in `apiService.ts`.
+    *   **Build:** Created `Dockerfile.prod` using multi-stage builds.
 
 ### 🏗️ Backend Changes
-*   **Commit:** `3f5fb83`
-*   **Summary:** Fixed critical migration and security issues for production.
+*   **Commit:** `d9dad62`
+*   **Summary:** Updated security settings for production domains.
 *   **Details:**
-    *   **Migration Fix:** Resolved a `unique_together` conflict in the `inventory` app that crashed the VPS build.
-    *   **Security:** Configured `NINJA_SKIP_CSRF` and `ALLOWED_HOSTS` for production subdomains (`pos.`, `api-pos.`).
-    *   **Docker:** Fixed missing source code (`COPY . .`) in the production Dockerfile.
-
-### 📱 Member App Changes
-*   **Commit:** `96d35c7`
-*   **Summary:** Pointed to production API.
+    *   **Security:** Added production subdomains to `CSRF_TRUSTED_ORIGINS`.
+    *   **Stability:** Pinned `uv` version to 0.5.29.
 
 ---
 
