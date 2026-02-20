@@ -69,7 +69,24 @@ services:
     depends_on:
       - backend
 
+  minio:
+    image: minio/minio:latest
+    container_name: ikan_bakar_minio
+    restart: always
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file:
+      - .env
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+
 volumes:
   db_data_fresh:
   backend_media_fresh:
   backend_static_fresh:
+  minio_data:
