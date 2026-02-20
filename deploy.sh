@@ -15,7 +15,6 @@ rsync -avz --progress \
     --exclude 'node_modules' \
     --exclude '__pycache__' \
     --exclude '.git' \
-    --exclude '.env' \
     --exclude 'dist' \
     --exclude '*.log' \
     ./frontend ./backend ./member_app ./web_frontend \
