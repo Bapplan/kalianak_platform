@@ -1,31 +1,16 @@
-# 📜 Kalianak Platform - Master Dev Log
-
-## 🟢 Session: 2026-02-19
-**Topic:** MinIO Integration & Image Display Fix
+## [🟢] Session: 2026-02-21
+**Topic:** Session setup and context understanding
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Commit:** `fd131fb` (and subsequent submodule updates)
-*   **Summary:** Successfully integrated MinIO storage and resolved image display issues.
+*   **Commit:** `[pending]`
+*   **Summary:** Initial session setup and project context loaded.
 *   **Details:**
-    *   **MinIO:** Added MinIO service to local Docker Compose.
-    *   **Backend:** Added `django-storages[s3]` and `boto3` to `requirements.txt`.
-    *   **VPS Deployment:** Removed redundant MinIO container from `docker-compose.prod.yml`.
-    *   **CORS:** Provided instructions and commands to set `kalianak-media` bucket policy to public/readonly using `mc anonymous set download`.
+    *   Understood project structure (backend, frontend, member_app, web_frontend).
+    *   Reviewed technology stack (Django, React, Docker, Postgres, Vite, TailwindCSS).
+    *   Noted development guidelines.
 
-### 🏗️ Backend Changes
-*   **Commit:** `f18961d` (and subsequent updates)
-*   **Summary:** Configured Django for MinIO S3 storage.
-*   **Details:**
-    *   **Settings:** Updated `settings.py` to dynamically set `MEDIA_URL` and `DEFAULT_FILE_STORAGE` based on `USE_MINIO` environment variable.
-    *   **Custom Storage:** Created `core/storage.py` with `MediaStorage` to prevent Django from renaming files (`AWS_S3_FILE_OVERWRITE=True`).
-    *   **App Registration:** Registered `core` as a Django app.
-
-### 🎨 Frontend Changes
-*   **Commit:** `e5c8039` (from previous session, related changes)
-*   **Summary:** Now correctly displays images from MinIO.
-
----
+# 📜 Kalianak Platform - Master Dev Log
 
 ## 🟢 Session: 2026-02-20 (Session 2)
 **Topic:** Final Production Fixes & Successful Launch
@@ -170,7 +155,7 @@
     *   **Expenses App:** Created new app `apps.expenses` with `Expense` and `ExpenseCategory` models.
     *   **Integration:** Linked expenses to the double-entry `bank` system. Each `Expense` creates a corresponding `Transaction` in the ledger.
     *   **Payroll:** Created `PayrollService` to automate salary generation. It creates `StaffPayroll` records and `Expense` entries, deducting from the selected Asset account.
-    *   **Financial Intelligence:** 
+    *   **Financial Intelligence:**
         *   Added `get_financial_report` to `BankController` calculating Gross Profit (Revenue - Theoretical COGS) and Net Profit (Gross Profit - OpEx).
         *   Added `get_cash_flow` to `BankController` for daily balance tracking across all asset accounts.
     *   **API:** Registered `ExpenseController` and updated `UsersController` with `run-payroll` endpoint.
@@ -187,7 +172,7 @@
     *   **Navigation:** Added "Finance & P&L" link to the Sidebar.
 
 ## 🟢 Session: 2026-01-21 (Morning)
-**Topic:** PWA, Offline Support, & UI Polish.  
+**Topic:** PWA, Offline Support, & UI Polish.
 **Branches:** `main`
 
 ### 🎨 Frontend Changes
@@ -256,7 +241,7 @@
 
 ### 🐛 Issue Log: "Restock Not Working"
 *   **Symptom:** User reported "Restock function doesn't work... list still populated" and observed 404 errors in Safari/Arc.
-*   **Root Cause 1 (Cross-Browser):** Missing trailing slashes in API calls caused 301 redirects which failed in some environments or were mishandled by the proxy/browser combination. **Fixed.**
+*   **Root Cause 1 (Cross-Browser):** Missing trailing slashes in API calls caused 301 redirects which failed in some environments or were mishandled by the proxy/browser/combination. **Fixed.**
 *   **Root Cause 2 (Logic):** The frontend was sending `X-Restaurant-ID: res-2` (string from ID generator) but the backend expected an integer. This caused a hidden 500 Error during `get_inventory` and Restock operations. **Fixed** by stripping the prefix in the backend controllers.
 *   **Resolution:** Verified via shell script (`backfill_stock.py`) and UI checks that stock levels now correctly increase after completing a restock order.
 
@@ -294,7 +279,7 @@
 
 ## 🟢 Session: 2025-12-30
 
-**Topic:** Bank Module & Order Management Features  
+**Topic:** Bank Module & Order Management Features
 **Branches:** `main` (Root), `new_frontend` -> `main` (Backend), `main` (Frontend)
 
 ### 🌳 Root / Configuration
@@ -326,7 +311,7 @@
 ---
 
 ## 🟢 Session: 2025-12-28
-**Topic:** Monorepo Integration & API Connection.  
+**Topic:** Monorepo Integration & API Connection.
 **Branches:** `main` (Root), `new_frontend` (Backend), `main` (Frontend)
 
 ### 🌳 Root / Configuration
@@ -374,7 +359,7 @@
 ---
 
 ## 🟢 Session: 2025-12-23
-**Topic:** Codebase Cleanup  
+**Topic:** Codebase Cleanup
 **Branches:** `models_cleanup`
 
 ### 🏗️ Backend Changes
@@ -385,7 +370,7 @@
 ---
 
 ## 🟢 Session: 2025-12-21
-**Topic:** Bugfix  
+**Topic:** Bugfix
 **Branches:** `main`
 
 ### 🏗️ Backend Changes
