@@ -21,24 +21,11 @@ services:
 
   backend:
     container_name: kalianak_backend
-    build: ./backend
-    restart: always
+    build:
+      context: ./backend
     env_file:
       - .env
-    volumes:
-      - kalianak_media:/app/media
-      - kalianak_static:/app/staticfiles
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - kalianak_internal
-      - webproxy
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      DB_HOST: db
-      DB_PORT: 5432
-      DJANGO_DEBUG: "False"
+    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=webproxy"
@@ -46,6 +33,20 @@ services:
       - "traefik.http.routers.kalianak-backend.entrypoints=websecure"
       - "traefik.http.routers.kalianak-backend.tls.certresolver=myresolver"
       - "traefik.http.services.kalianak-backend.loadbalancer.server.port=8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      DB_HOST: db
+      DB_PORT: 5432
+      DJANGO_DEBUG: "False"
+    networks:
+      - kalianak_internal
+      - webproxy
+    volumes:
+      - kalianak_media:/app/media
+      - kalianak_static:/app/staticfiles
 
   frontend:
     container_name: kalianak_frontend

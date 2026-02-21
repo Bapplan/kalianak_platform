@@ -1,16 +1,31 @@
-## [🟢] Session: 2026-02-21
-**Topic:** Session setup and context understanding
+# 📜 Kalianak Platform - Master Dev Log
+
+## 🟢 Session: 2026-02-21
+**Topic:** MinIO Integration & Image Display Fix
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-*   **Commit:** `[pending]`
-*   **Summary:** Initial session setup and project context loaded.
+*   **Commit:** `fd131fb` (and subsequent submodule updates)
+*   **Summary:** Successfully integrated MinIO storage and resolved image display issues.
 *   **Details:**
-    *   Understood project structure (backend, frontend, member_app, web_frontend).
-    *   Reviewed technology stack (Django, React, Docker, Postgres, Vite, TailwindCSS).
-    *   Noted development guidelines.
+    *   **MinIO:** Added MinIO service to local Docker Compose.
+    *   **Backend:** Added `django-storages[s3]` and `boto3` to `requirements.txt`.
+    *   **VPS Deployment:** Removed redundant MinIO container from `docker-compose.prod.yml`.
+    *   **CORS:** Provided instructions and commands to set `kalianak-media` bucket policy to public/readonly using `mc anonymous set download`.
 
-# 📜 Kalianak Platform - Master Dev Log
+### 🏗️ Backend Changes
+*   **Commit:** `f18961d` (and subsequent updates)
+*   **Summary:** Configured Django for MinIO S3 storage.
+*   **Details:**
+    *   **Settings:** Updated `settings.py` to dynamically set `MEDIA_URL` and `DEFAULT_FILE_STORAGE` based on `USE_MINIO` environment variable.
+    *   **Custom Storage:** Created `core/storage.py` with `MediaStorage` to prevent Django from renaming files (`AWS_S3_FILE_OVERWRITE=True`).
+    *   **App Registration:** Registered `core` as a Django app.
+
+### 🎨 Frontend Changes
+*   **Commit:** `e5c8039` (from previous session, related changes)
+*   **Summary:** Now correctly displays images from MinIO.
+
+---
 
 ## 🟢 Session: 2026-02-20 (Session 2)
 **Topic:** Final Production Fixes & Successful Launch
