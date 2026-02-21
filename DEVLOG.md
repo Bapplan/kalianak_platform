@@ -1,5 +1,26 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-21 (Session 2)
+**Topic:** Capacitor iOS Backend Connection Fix
+**Branches:** `main`
+
+### 🏗️ Frontend Changes
+*   **Commit:** `848cbad`
+*   **Summary:** Modernized native networking to use the `CapacitorHttp` plugin.
+*   **Details:**
+    *   **API Service:** Updated `frontend/services/apiService.ts` to use `(Capacitor as any).Plugins.CapacitorHttp.request`.
+    *   **Error Logging:** Added detailed console error logging for failed native requests.
+    *   **CORS:** Avoids origin-based rejections on iOS by moving networking to the native layer.
+
+### 🏗️ Member App Changes
+*   **Commit:** `6978810`
+*   **Summary:** Enabled the CapacitorHttp plugin for the native member app.
+*   **Details:**
+    *   **Config:** Updated `member_app/capacitor.config.ts` to enable `CapacitorHttp`.
+    *   **Consistency:** Ensured all native apps follow the same networking strategy for cross-platform stability.
+
+---
+
 ## 🟢 Session: 2026-02-21
 **Topic:** MinIO Integration & Image Display Fix
 **Branches:** `main`
