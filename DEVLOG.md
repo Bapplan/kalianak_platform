@@ -1,5 +1,23 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-21 (Session 3)
+**Topic:** Android Native Printer Integration (ESC/POS)
+**Branches:** `main`
+
+### 🏗️ Frontend Changes
+*   **Summary:** Implemented thermal printer support via a custom native Android bridge.
+*   **Details:**
+    *   **Printer Service:** Created `printerService.ts` to convert orders into raw ESC/POS commands (Header, Items, Total, Auto-Cut).
+    *   **UI Integration:** Added auto-printing to `OrdersList.tsx` upon payment and a manual "Test Print" button.
+    *   **Android Fix:** Removed invalid `server.url` in `capacitor.config.ts` that caused native crashes.
+
+### 🏗️ Android Changes
+*   **Custom Plugin:** Authored `PrinterTcpPlugin.java` to handle direct TCP socket communication on a background thread.
+*   **Bridge:** Registered the plugin in `MainActivity.java`.
+*   **Build System:** Downgraded Gradle (8.7.3) and SDK (36) to stable versions and patched `@capacitor/keyboard` to fix Proguard-related build failures.
+
+---
+
 ## 🟢 Session: 2026-02-21 (Session 2)
 **Topic:** Capacitor iOS Backend Connection Fix
 **Branches:** `main`
