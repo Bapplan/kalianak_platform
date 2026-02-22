@@ -5,11 +5,12 @@
 **Branches:** `main`
 
 ### 🏗️ Frontend Changes
-*   **Summary:** Implemented thermal printer support via a custom native Android bridge.
+*   **Summary:** Implemented thermal printer support via a custom native Android bridge and finalized the "Kitchen Ticket" workflow.
 *   **Details:**
-    *   **Printer Service:** Created `printerService.ts` to convert orders into raw ESC/POS commands (Header, Items, Total, Auto-Cut).
-    *   **UI Integration:** Added auto-printing to `OrdersList.tsx` upon payment and a manual "Test Print" button.
-    *   **Android Fix:** Removed invalid `server.url` in `capacitor.config.ts` that caused native crashes.
+    *   **Printer Service:** Created `printerService.ts` with a large-font layout (Bahasa Indonesia) designed specifically for kitchen staff (No prices, Triple Size IDs/Items).
+    *   **Logic Fix:** Moved automatic printing from the "Payment" step to the **"Order Creation"** and **"Order Update"** steps to ensure chefs get tickets immediately.
+    *   **UI Integration:** Added a manual "Test Print" button to the Orders List for easier troubleshooting.
+    *   **Android Fix:** Removed invalid `server.url` in `capacitor.config.ts` that caused native crashes on Android.
 
 ### 🏗️ Android Changes
 *   **Custom Plugin:** Authored `PrinterTcpPlugin.java` to handle direct TCP socket communication on a background thread.
