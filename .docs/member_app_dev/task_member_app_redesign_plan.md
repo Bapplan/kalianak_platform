@@ -155,11 +155,11 @@ Recommended build order for Claude Code:
 ```
 I need you to redesign the UI of my existing Kalianak Member App to match 
 the style of modern food app UIs (KFC Indonesia, Pizza Hut Indonesia, 
-Domino's Pizza Indonesia). I'm attaching 4 screenshots for reference:
-- @IMG_0774.jpeg: KFC Indonesia app (example of order mode grid, bottom nav)
-- @IMG_0773.jpeg: Pizza Hut app (example of greeting card + stats, color scheme)
-- @IMG_0776.jpeg: Domino's app (example of order toggle, category grid)
-- @IMG_0777.jpeg: Current Kalianak app (what we have now, needs redesign)
+Domino's Pizza Indonesia). I'm attaching 4 screenshots for reference (located in root dir. of kalianak_platform project):
+- IMG_0774.jpeg: KFC Indonesia app (example of order mode grid, bottom nav)
+- IMG_0773.jpeg: Pizza Hut app (example of greeting card + stats, color scheme)
+- IMG_0776.jpeg: Domino's app (example of order toggle, category grid)
+- IMG_0777.jpeg: Current Kalianak app (what we have now, needs redesign)
 
 Please follow this redesign plan:
 
