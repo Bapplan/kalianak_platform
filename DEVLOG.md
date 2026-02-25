@@ -5,7 +5,7 @@
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-- **Commit:** *(set by sync)*
+- **Commit:** `b01ed79`
 - **Summary:** Created CLAUDE.md, rewrote docker-compose.yml for live-DB local dev, fixed SSH tunnel + macOS keychain.
 - **Details:**
   - Created `CLAUDE.md` with full architecture guide, commands, ID-prefixing convention, multi-tenancy, offline-first API, printer notes
@@ -15,7 +15,7 @@
   - `~/.ssh/config`: added `UseKeychain yes` + `AddKeysToAgent yes` to stop passphrase prompts
 
 ### 🏗️ Frontend
-- **Commit:** *(set by sync)*
+- **Commit:** `6819cd0` *(committed in prior session)*
 - **Summary:** Added `printPaidReceipt()` with full ESC/POS receipt buffer generation, triggered on order payment.
 - **Details:**
   - `printerService.ts` rewritten: `printPaidReceipt(order)` logs human-readable receipt to console and pre-generates ESC/POS buffer (42-char columns: 24 item + 5 qty + 13 price), TODO for BTP3000 Bluetooth when hardware arrives
@@ -23,7 +23,7 @@
   - `OrdersList.tsx`: `handlePayOrder` calls `printerService.printPaidReceipt(paidOrder)` after successful payment
 
 ### 🏗️ Member App
-- **Commit:** *(set by sync)*
+- **Commit:** `32d12e9`
 - **Summary:** Complete UI redesign of Home page and bottom navigation to modern Indonesian food-app style.
 - **Details:**
   - `index.css`: removed Konsta dark-mode, added CSS design tokens (primary #8B1A1A, accent #FFB800, etc.)
