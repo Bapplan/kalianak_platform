@@ -1,5 +1,35 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-26 01:02
+**Topic:** Local dev Docker setup, receipt printer (ESC/POS), member app full UI redesign
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+- **Commit:** *(set by sync)*
+- **Summary:** Created CLAUDE.md, rewrote docker-compose.yml for live-DB local dev, fixed SSH tunnel + macOS keychain.
+- **Details:**
+  - Created `CLAUDE.md` with full architecture guide, commands, ID-prefixing convention, multi-tenancy, offline-first API, printer notes
+  - Rewrote `docker-compose.yml`: all 4 services (backend, frontend, web_frontend, member_app) with hot-reload volume mounts, named `node_modules` Docker volumes, `extra_hosts: host.docker.internal`, backend healthcheck, frontend services depend on healthy backend
+  - `docker-compose.prod.yml`: changed DB port binding to `127.0.0.1:5434:5432` to avoid port conflict with another project on same VPS
+  - SSH tunnel command updated: `ssh -L 5433:localhost:5434 -L 9000:localhost:9000 anders@109.205.177.108`
+  - `~/.ssh/config`: added `UseKeychain yes` + `AddKeysToAgent yes` to stop passphrase prompts
+
+### 🏗️ Frontend
+- **Commit:** *(set by sync)*
+- **Summary:** Added `printPaidReceipt()` with full ESC/POS receipt buffer generation, triggered on order payment.
+- **Details:**
+  - `printerService.ts` rewritten: `printPaidReceipt(order)` logs human-readable receipt to console and pre-generates ESC/POS buffer (42-char columns: 24 item + 5 qty + 13 price), TODO for BTP3000 Bluetooth when hardware arrives
+  - `generateReceiptBuffer()`: header double-size bold, order info, column-aligned items table, right-aligned double-height total, footer, full cut (GS V 42 00)
+  - `OrdersList.tsx`: `handlePayOrder` calls `printerService.printPaidReceipt(paidOrder)` after successful payment
+
+### 🏗️ Member App
+- **Commit:** *(set by sync)*
+- **Summary:** Complete UI redesign of Home page and bottom navigation to modern Indonesian food-app style.
+- **Details:**
+  - `index.css`: removed Konsta dark-mode, added CSS design tokens (primary #8B1A1A, accent #FFB800, etc.)
+  - `MainLayout.tsx`: replaced Konsta Tabbar with custom 5-tab bottom nav — raised center Scan button (maroon circle, -mt-7), active tab in maroon with bold stroke, safe-area-inset-bottom support
+  - `Home.tsx`: full redesign — auto-sliding gradient hero carousel (3 banners, dot indicators, top bar), greeting card overlapping banner with points, membership card (dark gradient, tier badge, progress bar to next tier), 4-column action grid with maroon icons, horizontal-scroll special offers, info card
+
 ## 🟢 Session: 2026-02-21 (Session 3)
 **Topic:** Android Native Printer Integration (ESC/POS)
 **Branches:** `main`
