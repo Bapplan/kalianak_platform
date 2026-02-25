@@ -1,92 +1,82 @@
 services:
-  db:
-    container_name: ikan_bakar_db_fresh
-    image: postgres:15-alpine
-    restart: always
+  backend:
+    container_name: kalianak_backend_dev
+    build: ./backend
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
-    volumes:
-      - db_data_fresh:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  backend:
-    container_name: ikan_bakar_backend_fresh
-    build: ./backend
-    # No command needed as we're using entrypoint.sh
-    env_file:
-      - .env
+      # Override DB_HOST/PORT from .env — dev connects via SSH tunnel on host machine.
+      # Run tunnel BEFORE docker compose up (keep this terminal open):
+      #   ssh -L 5433:localhost:5434 -L 9000:localhost:9000 anders@109.205.177.108
+      # 5433 (local) → 5434 (server localhost) → prod DB container:5432
+      # Port 5434 on the server avoids conflict with the other project occupying 5432.
+      # Requires deploy.sh to have been run so prod DB exposes its port on server localhost.
+      DB_HOST: host.docker.internal
+      DB_PORT: "5433"
     volumes:
       - ./backend:/app
-      - backend_media_fresh:/app/media
-      - backend_static_fresh:/app/staticfiles
     ports:
       - "8001:8000"
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DJANGO_DEBUG: ${DJANGO_DEBUG}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+    # Allows backend to reach host machine (needed for SSH-tunnelled live DB/MinIO)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import socket; s=socket.socket(); s.settimeout(2); r=s.connect_ex((\"localhost\",8000)); s.close(); exit(r)'"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    restart: unless-stopped
 
   frontend:
-    container_name: ikan_bakar_frontend
-    image: node:20-alpine
+    container_name: kalianak_frontend_dev
+    image: node:22-alpine
     working_dir: /app
     volumes:
       - ./frontend:/app
+      - frontend_modules:/app/node_modules
     ports:
       - "3001:3000"
     command: sh -c "npm install && npm run dev -- --host"
     env_file:
       - .env
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
   web_frontend:
-    container_name: ikan_bakar_web_frontend
-    image: node:20-alpine
+    container_name: kalianak_web_frontend_dev
+    image: node:22-alpine
     working_dir: /app
     volumes:
       - ./web_frontend:/app
+      - web_frontend_modules:/app/node_modules
     ports:
       - "3002:3000"
     command: sh -c "npm install && npm run dev -- --host"
     env_file:
       - .env
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
-  minio:
-    image: minio/minio:latest
-    container_name: ikan_bakar_minio
-    restart: always
-    command: server /data --console-address ":9001"
+  member_app:
+    container_name: kalianak_member_app_dev
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./member_app:/app
+      - member_app_modules:/app/node_modules
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "3003:5173"
+    command: sh -c "npm install && npm run dev -- --host"
     env_file:
       - .env
-    volumes:
-      - minio_data:/data
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    depends_on:
+      backend:
+        condition: service_healthy
 
 volumes:
-  db_data_fresh:
-  backend_media_fresh:
-  backend_static_fresh:
-  minio_data:
+  frontend_modules:
+  web_frontend_modules:
+  member_app_modules:

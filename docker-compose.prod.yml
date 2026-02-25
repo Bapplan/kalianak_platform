@@ -9,6 +9,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      # Bound to localhost only — port 5432 on the server is taken by another project.
+      # Use SSH tunnel for remote dev access:
+      #   ssh -L 5433:localhost:5434 anders@109.205.177.108
+      - "127.0.0.1:5434:5432"
     volumes:
       - kalianak_db_data:/var/lib/postgresql/data
     healthcheck:
