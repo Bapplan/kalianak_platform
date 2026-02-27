@@ -5,7 +5,7 @@
 **Branches:** `main`
 
 ### 🌳 Root / Configuration
-- **Commit:** *(pending)*
+- **Commit:** `473b8de`
 - **Summary:** Removed dead HTMX static assets from `backend/static/`; printer images and session photos cleaned from root.
 - **Details:**
   - Deleted `backend/static/images/` (old template dish/ingredient images)
@@ -13,7 +13,7 @@
   - Deleted empty `backend/static/pos/`
 
 ### 🏗️ Backend
-- **Commit:** *(pending)*
+- **Commit:** `fa312cb`
 - **Summary:** Removed all dead Django template/HTMX code; fixed Django 5.2 media storage.
 - **Details:**
   - `core/urls.py`: removed `pos_views` import and 5 dead URL includes (users, pos, menu, inventory, staff_list)
@@ -26,7 +26,7 @@
   - `core/storage.py`: simplified `get_available_name` to unconditionally return original filename — fixes unique-suffix bug on image uploads
 
 ### 🏗️ Frontend
-- **Commit:** *(pending)*
+- **Commit:** `c98914d`
 - **Summary:** Dead component cleanup + Bluetooth receipt printer fully wired and working.
 - **Details:**
   - Deleted: `GeminiSandbox.tsx`, `DatabaseVisualizer.tsx`, `ProjectPlanning.tsx`, `Sidebar-b.tsx`, `services/dbService.ts`
@@ -40,14 +40,14 @@
   - Receipt printer confirmed working on KASSEN BTP3000 via Bluetooth
 
 ### 🏗️ Member App
-- **Commit:** *(pending)*
+- **Commit:** `0b95bde`
 - **Summary:** Removed unused dependency and dead store function.
 - **Details:**
   - Removed `react-player` from `package.json`
   - Removed `clearCart()` from `useCartStore.ts`
 
 ### 🏗️ Web Frontend
-- **Commit:** *(pending)*
+- **Commit:** `b6b173a`
 - **Summary:** Removed dead Gemini API config from Vite.
 - **Details:**
   - `vite.config.ts`: removed `loadEnv`, `env`, and both `process.env.GEMINI_API_KEY` define entries
