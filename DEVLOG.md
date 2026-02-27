@@ -1,5 +1,57 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-27 14:51
+**Topic:** Mass dead-code cleanup (all sub-projects), Bluetooth receipt printer live, Django 5.2 storage fix
+**Branches:** `main`
+
+### 🌳 Root / Configuration
+- **Commit:** *(pending)*
+- **Summary:** Removed dead HTMX static assets from `backend/static/`; printer images and session photos cleaned from root.
+- **Details:**
+  - Deleted `backend/static/images/` (old template dish/ingredient images)
+  - Deleted `backend/static/css/` and `backend/static/js/` (old HTMX styles + scripts)
+  - Deleted empty `backend/static/pos/`
+
+### 🏗️ Backend
+- **Commit:** *(pending)*
+- **Summary:** Removed all dead Django template/HTMX code; fixed Django 5.2 media storage.
+- **Details:**
+  - `core/urls.py`: removed `pos_views` import and 5 dead URL includes (users, pos, menu, inventory, staff_list)
+  - Deleted entirely: `apps/pos/views.py`, `apps/pos/urls.py`, `apps/pos/admin.py`, `apps/pos/templatetags/`
+  - Deleted entirely: `apps/users/views.py`, `apps/users/urls.py`
+  - Deleted entirely: `apps/menu/views.py`, `apps/menu/urls.py`
+  - Deleted entirely: `apps/inventory/views.py`, `apps/inventory/urls.py`
+  - Deleted entirely: `apps/orders/views.py`, `apps/orders/urls.py`
+  - `core/settings.py`: replaced removed `DEFAULT_FILE_STORAGE` + `STATICFILES_STORAGE` with Django 5.2 `STORAGES` dict — `MediaStorage` now actually used for MinIO uploads
+  - `core/storage.py`: simplified `get_available_name` to unconditionally return original filename — fixes unique-suffix bug on image uploads
+
+### 🏗️ Frontend
+- **Commit:** *(pending)*
+- **Summary:** Dead component cleanup + Bluetooth receipt printer fully wired and working.
+- **Details:**
+  - Deleted: `GeminiSandbox.tsx`, `DatabaseVisualizer.tsx`, `ProjectPlanning.tsx`, `Sidebar-b.tsx`, `services/dbService.ts`
+  - Removed `INVENTORY` from View enum in `types.ts`
+  - Removed dead npm deps: `capacitor-tcp-socket`, `@capacitor/keyboard`, `@capacitor/network`, `@capacitor/create-plugin`
+  - Removed commented Ollama block from `ChatAssistant.tsx`
+  - **`PrinterBluetoothPlugin.java`**: new native Android plugin — finds paired BT device by name, opens SPP socket, sends base64 ESC/POS bytes; handles Android 12+ `BLUETOOTH_CONNECT` runtime permission
+  - **`MainActivity.java`**: registered `PrinterBluetoothPlugin`
+  - **`AndroidManifest.xml`**: added Bluetooth permissions (API < 31 and API 31+); removed `BLUETOOTH_SCAN` from `cancelDiscovery` call that caused crash
+  - **`printerService.ts`**: wired `printPaidReceipt()` to `PrinterBluetooth.print()` with device name `RPP02N`; redesigned receipt ESC/POS layout to match reference (centered header, Meja/Staff/Waktu/Order info block, item-per-line with qty×unit + right-aligned total, Kalianak Tech © footer)
+  - Receipt printer confirmed working on KASSEN BTP3000 via Bluetooth
+
+### 🏗️ Member App
+- **Commit:** *(pending)*
+- **Summary:** Removed unused dependency and dead store function.
+- **Details:**
+  - Removed `react-player` from `package.json`
+  - Removed `clearCart()` from `useCartStore.ts`
+
+### 🏗️ Web Frontend
+- **Commit:** *(pending)*
+- **Summary:** Removed dead Gemini API config from Vite.
+- **Details:**
+  - `vite.config.ts`: removed `loadEnv`, `env`, and both `process.env.GEMINI_API_KEY` define entries
+
 ## 🟢 Session: 2026-02-26 01:02
 **Topic:** Local dev Docker setup, receipt printer (ESC/POS), member app full UI redesign
 **Branches:** `main`
