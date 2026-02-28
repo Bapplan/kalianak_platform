@@ -1,5 +1,36 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🔴 Session: 2026-02-28 11:33
+**Topic:** Image upload + crop feature (Menu, Supplies, Staff, Recipes) + MinIO URL fix
+**Branches:** `main`
+**Status note:** Upload flow is live in production and working. Image display after upload shows some intermittent visual quirks — suspected browser cache, not yet confirmed. **Pick up next:** reload the page fresh and verify images display correctly, possibly add a `?v=timestamp` cache-buster to `imageUrl` after upload if the glitch persists. Also: server's `/opt/kalianak/.env` has `MINIO_ENDPOINT_URL=https://s3.ikanbakarkalianak.store` (patched via SSH) but the repo `.env` template still has the old internal hostname — should be updated.
+
+### 🌳 Root / Configuration
+- **Commit:** *(see sync output)*
+- **Summary:** No net change to docker-compose — infra_default network added then reverted after discovering it caused DB hostname collision.
+
+### 🏗️ Backend
+- **Commit:** *(see sync output)*
+- **Summary:** Three new image upload endpoints + critical MinIO URL bug fix.
+- **Details:**
+  - `apps/menu/api.py`: added `POST /dishes/{dish_id}/upload-image/` — saves to `dish.image`, returns `imageUrl`
+  - `apps/inventory/api.py`: added `POST /{item_id}/upload-image/` — handles `ing-`, `stk-`, `hyg-` prefixes across all three inventory models
+  - `apps/users/api.py`: added `POST /staff/{id}/upload-image/` — saves to `staff.image`, returns `imageUrl`
+  - `core/storage.py`: overrode `url()` in `MediaStorage` to inject bucket name — fixes long-standing bug where `dish.image.url` returned `domain/key` instead of `domain/bucket/key`, causing 400 errors on all MinIO image loads
+
+### 🏗️ Frontend
+- **Commit:** *(see sync output)*
+- **Summary:** New shared `ImageCropModal` component wired into four management screens; `uploadImage()` added to API service.
+- **Details:**
+  - **New** `components/ImageCropModal.tsx`: reusable modal — auto-opens file picker on mount, `react-easy-crop` canvas with zoom slider, extracts crop via `<canvas>` → JPEG `Blob`, calls `onSave(blob)` with loading spinner
+  - `services/apiService.ts`: added `uploadImage(endpoint, blob, filename)` using native `fetch` (not CapacitorHttp) for correct `FormData` multipart handling
+  - `components/MenuManagement.tsx`: camera hover overlay on dish card image (4/3 ratio); optimistic state update on save
+  - `components/Supplies.tsx`: camera hover overlay on item avatar thumbnail (1/1 ratio)
+  - `components/StaffManagement.tsx`: camera hover overlay on staff avatar circle (1/1 ratio)
+  - `components/RecipeCostAnalysis.tsx`: camera hover overlay on dish photo (4/3 ratio)
+  - All overlays only visible to `role === 'admin'` (read from `localStorage`)
+  - `package.json`: added `react-easy-crop` dependency
+
 ## 🟢 Session: 2026-02-27 14:51
 **Topic:** Mass dead-code cleanup (all sub-projects), Bluetooth receipt printer live, Django 5.2 storage fix
 **Branches:** `main`

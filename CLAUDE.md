@@ -1,119 +1,114 @@
-# CLAUDE.md
+# Kalianak Platform
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Overview
+- **Type**: Monorepo with git submodules
+- **Stack**: Django 5.2+ (backend), React/TypeScript + Capacitor (frontend & apps)
+- **Architecture**: Pure REST API backend + separate React frontends (no server-rendered views)
+- **Domain**: POS and customer loyalty system for Ikan Bakar Kalianak restaurant(s)
 
-## Repository Overview
+This CLAUDE.md is the authoritative source for development guidelines.
+Subdirectories contain specialized CLAUDE.md files that extend these rules.
 
-Monorepo for the **Kalianak Platform** — a POS and customer loyalty system for Ikan Bakar Kalianak restaurant(s). Uses git submodules for each sub-project. Always run `git submodule update --init --recursive` after cloning.
+Always run `git submodule update --init --recursive` after cloning.
 
-Sub-projects:
-- `backend/` — Django 5.2+ REST API + HTMX server-rendered admin views
-- `frontend/` — React/TypeScript POS tablet app (Capacitor for native iOS/Android)
-- `member_app/` — Customer mobile app (React, Capacitor, Konsta UI)
-- `web_frontend/` — Public customer-facing website
+---
+
+## Sub-Projects
+
+| Directory | Purpose | Details |
+|-----------|---------|---------|
+| `backend/` | Django REST API | [backend/CLAUDE.md](backend/CLAUDE.md) |
+| `frontend/` | POS tablet app (React + Capacitor) | [frontend/CLAUDE.md](frontend/CLAUDE.md) |
+| `member_app/` | Customer mobile app (React + Capacitor) | [member_app/CLAUDE.md](member_app/CLAUDE.md) |
+| `web_frontend/` | Public restaurant website | [web_frontend/CLAUDE.md](web_frontend/CLAUDE.md) |
+
+---
+
+## Universal Rules
+
+### MUST
+- **MUST** strip the `ord-`, `dish-`, `cat-`, `staff-`, `res-` prefix when resolving IDs in the backend (e.g., `order_id.replace("ord-", "")`)
+- **MUST** send `X-Restaurant-ID` header on every API request from any frontend
+- **MUST** use the `STORAGES` dict (not the deprecated `DEFAULT_FILE_STORAGE`) in Django 5.2+
+- **MUST** run migrations inside Docker or on the server — never locally against the live DB without SSH tunnel
+- **MUST** confirm with user before running `/migrate` in production
+
+### MUST NOT
+- **MUST NOT** add server-rendered Django template views — the backend is a pure REST API
+- **MUST NOT** add React Router to the POS frontend — it uses a `View` enum routing system
+- **MUST NOT** commit `.env` files, secrets, or API keys
+- **MUST NOT** call `git push --force` or `git reset --hard` without explicit user confirmation
+- **MUST NOT** delete migration files
+
+### SHOULD
+- **SHOULD** keep API controller methods thin — move business logic to service files (`services.py`)
+- **SHOULD** use the offline-first pattern in `frontend/` — mutations go through `api.insert()` / `api.updateOrder()`, not raw `fetch()`
+- **SHOULD** test API changes via `curl` or the Ninja docs UI at `/api/docs` before touching frontend
+
+---
 
 ## Commands
 
-### Backend (inside `backend/`)
-Uses `uv` for Python package management (Python 3.13+).
-
+### Local Dev (all services, hot-reload)
 ```bash
-# Run dev server
-uv run python manage.py runserver 0.0.0.0:8000
-
-# Migrations
-uv run python manage.py makemigrations
-uv run python manage.py migrate
-
-# Run a single test
-uv run python manage.py test apps.orders.tests
-
-# Install dependencies
-uv sync
-```
-
-Requires a `.env` in the repo root (or `backend/`) with `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DB_HOST`, `DB_PORT`, `DJANGO_SECRET_KEY`.
-
-### Frontend POS app (inside `frontend/`)
-```bash
-npm install
-npm run dev          # Vite dev server on port 3000
-npm run build        # Production build
-npm run build:ios-dev  # Build targeting prod API (for native iOS dev)
-```
-
-### Member App (inside `member_app/`)
-```bash
-npm install
-npm run dev          # Vite dev server
-npm run build        # TypeScript + Vite build
-npm run lint         # ESLint
-```
-
-### Local dev (all services, hot-reload, live DB)
-```bash
-# 1. Open an SSH tunnel to the live DB (keep running in a separate shell)
+# 1. SSH tunnel to live DB (keep running in separate shell)
 ssh -L 5432:127.0.0.1:5432 anders@109.205.177.108 -N
 
-# 2. Ensure .env has DB_HOST=host.docker.internal (all other DB vars as production)
-
-# 3. Start all services with hot-reload
+# 2. Start all services
 docker compose up --build
 ```
-
 Ports: backend `8001`, frontend POS `3001`, web_frontend `3002`, member_app `3003`.
-Source files are volume-mounted — edits hot-reload instantly. `node_modules` live in named Docker volumes so they never conflict with host installs.
+Source files are volume-mounted — edits hot-reload instantly.
 
 ### Deploy to Production
 ```bash
-# From repo root — rsyncs files to server and rebuilds Docker containers
-./deploy.sh
+./deploy.sh   # rsyncs to server and rebuilds Docker containers
+```
+See `/deploy` custom command for full workflow.
+
+### Backend (from `backend/`)
+```bash
+uv run python manage.py runserver 0.0.0.0:8000   # dev server
+uv run python manage.py makemigrations             # create migration
+uv run python manage.py migrate                    # apply migrations (needs /migrate confirmation in prod)
+uv run python manage.py test apps.orders.tests     # run tests
+uv sync                                            # install dependencies
 ```
 
-### Kitchen Printer Bridge (separate process, not in this repo)
+### Frontend POS (from `frontend/`)
 ```bash
-# Run from /Users/andershedborg/print_worker in a separate shell
-uv run printer_bridge.py
+npm run dev            # Vite dev server :3000
+npm run build          # production build
+npm run build:ios-dev  # build targeting prod API (native iOS dev)
 ```
+
+### Member App (from `member_app/`)
+```bash
+npm run dev    # Vite dev server
+npm run build  # TypeScript + Vite build
+npm run lint   # ESLint
+```
+
+---
 
 ## Architecture
 
-### Backend Django Apps (`backend/apps/`)
-- **`orders/`** — Core order flow: `Order`, `OrderDish`, `Table` models. `OrdersController` (Ninja API at `/api/orders/`). On order creation, triggers kitchen printer. On `pay`, deducts inventory and calls `BankService`.
-- **`inventory/`** — `InventoryStock`, `Ingredient` models. Restock workflow (pending → complete).
-- **`menu/`** — `Dish`, `Category`, `DishIngredient` (many-to-many through model with cost tracking).
-- **`users/`** — `StaffMember` (extends Django `User`), `Restaurant` models. Auth at `/staff-login/`.
-- **`bank/`** — Double-entry accounting via `BankService.process_order_payment()`. Tracks cash/QRIS/card accounts.
-- **`expenses/`** — Expense categories and entries.
-- **`pos/`** — HTMX-powered dashboard/views (server-rendered, secondary interface alongside React API).
-
-The REST API uses `django-ninja-extra` controllers, mounted at `/api/` in `core/urls.py`. CSRF is disabled for the Ninja API (`NINJA_SKIP_CSRF = True`). CORS is open (`CORS_ALLOW_ALL_ORIGINS = True`).
-
-### ID Prefixing Convention
-The API layer translates between Django integer PKs and prefixed string IDs used in the frontend:
+### ID Prefixing Convention (CRITICAL)
+The API translates between Django integer PKs and prefixed string IDs for the frontend:
 - Orders: `ord-{pk}`
 - Dishes: `dish-{pk}`
 - Categories: `cat-{pk}`
 - Staff: `staff-{pk}`
 - Restaurants: `res-{pk}` (or plain integer)
 
-Always apply `.replace("ord-", "")` etc. when resolving IDs in the backend.
+Backend strips prefix before DB operations:
+```python
+pk = int(order_id.replace("ord-", ""))
+```
 
 ### Multi-Tenancy
-Restaurant scoping is done via the `X-Restaurant-ID` HTTP header sent by the frontend on every API request. Controllers call `self._get_restaurant(request)` to filter querysets.
-
-### Frontend POS (`frontend/`)
-Single-page React app with a sidebar `View` enum routing system (no React Router). All API calls go through the singleton `api` (from `services/apiService.ts`), which:
-- On native (Capacitor), uses `CapacitorHttp.request()` with absolute URL `https://api-pos.ikanbakarkalianak.store/api`
-- On web, uses relative `/api` (proxied by Vite to `http://backend:8000`)
-- Offline-first: caches GET responses in IndexedDB, queues mutations in an "outbox" and syncs on reconnect
-
-Kitchen ticket printing uses a custom native Capacitor plugin `PrinterTcp` (Android only, 80mm ESC/POS, IP `192.168.1.200:9100`). Printing is triggered automatically when an order is created. On web/iOS, `printKitchenOrder` is a no-op.
-
-UI uses DaisyUI v5 + Tailwind CSS v4. Two themes: `abyss` (dark) and `corporate` (light), toggled via localStorage.
-
-### Member App (`member_app/`)
-Customer-facing mobile app with Capacitor. Uses Konsta UI (iOS theme), Zustand for state, React Router v7. Pages: Home, Menu, History, Profile. Protected by `ProtectedRoute`.
+Restaurant scoping via `X-Restaurant-ID` HTTP header on every request.
+Controllers call `self._get_restaurant(request)` to resolve and filter by restaurant.
 
 ### Production Infrastructure
 Docker Compose (`docker-compose.prod.yml`) with Traefik reverse proxy:
@@ -121,7 +116,47 @@ Docker Compose (`docker-compose.prod.yml`) with Traefik reverse proxy:
 - Frontend POS → `pos.ikanbakarkalianak.store`
 - Web frontend → `www.ikanbakarkalianak.store`
 
-Static files served by WhiteNoise. Media files optionally stored in MinIO/S3 (controlled by `USE_MINIO` env var).
+Media files in MinIO/S3 (controlled by `USE_MINIO` env var). Static files via WhiteNoise.
 
 ### Locale
-Backend uses Indonesian locale (`id`) and `Asia/Jakarta` timezone. The Django admin panel is forced to English via `AdminLanguageMiddleware`.
+Backend: Indonesian locale (`id`), `Asia/Jakarta` timezone.
+Django admin panel forced to English via `AdminLanguageMiddleware`.
+
+### Kitchen Printer Bridge
+A separate process (not in this repo) running on the local network:
+```bash
+# Run from /Users/andershedborg/print_worker/
+uv run printer_bridge.py
+```
+
+---
+
+## Security
+- **NEVER** commit `.env`, tokens, API keys, or passwords
+- `CORS_ALLOW_ALL_ORIGINS = True` is intentional (API-only, no session cookies for API routes)
+- `NINJA_SKIP_CSRF = True` is intentional (cross-origin tablet app)
+- Media bucket is public-read; never store sensitive files in MinIO
+
+---
+
+## Custom Commands
+- `/deploy` — Full production deploy workflow
+- `/migrate` — Run Django migration with confirmation gate
+- `/new-api-endpoint` — Scaffold a new Ninja controller + schema
+
+---
+
+## Quick Search
+```bash
+# Find API endpoint definition
+rg -n "@http_(get|post|put|delete)" backend/apps/
+
+# Find frontend component
+rg -n "^const [A-Z]|^function [A-Z]|^export (default |const )" frontend/src/components/
+
+# Find Zustand store
+rg -n "create<" member_app/src/store/
+
+# Find migration files
+find backend/apps -name "*.py" -path "*/migrations/*" | sort
+```
