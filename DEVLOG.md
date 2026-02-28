@@ -6,11 +6,11 @@
 **iOS note:** Safe-area inset fix works correctly on Android (Capacitor). On iOS devices (iPhone 17 Pro Max etc.) the header still renders behind the status bar on the first login-form → dashboard transition, but is correct on direct reopen. Root cause not confirmed — suspected timing issue with how iOS WebView reports window insets during the splash/login transition. **Not a priority** (app runs on Android tablets), but should be revisited if iOS support becomes a requirement.
 
 ### 🌳 Root / Configuration
-- **Commit:** *(filled after sync)*
+- **Commit:** `4f84e89`
 - **Summary:** No root config changes this session.
 
 ### 🏗️ Frontend
-- **Commit:** *(filled after sync)*
+- **Commit:** `d4f944b`
 - **Summary:** Safe-area layout fix, ChatAssistant removed, Dashboard cleaned up, multiple UX copy/layout tasks.
 - **Details:**
   - `index.html`: Removed `padding-*: env(safe-area-inset-*)` from `body` — moved safe-area handling to individual elements
@@ -22,7 +22,7 @@
   - `capacitor.config.ts`: Splash screen `launchShowDuration` 2000 → 4000ms
 
 ### 🏗️ Backend
-- **Commit:** *(filled after sync)*
+- **Commit:** `f944a23`
 - **Summary:** Restaurant names updated in seed command.
 - **Details:**
   - `apps/users/management/commands/create_restaurants.py`: Renamed "Kalianak 1/2" → "Kalianak Depot 1/2" for fresh installs
