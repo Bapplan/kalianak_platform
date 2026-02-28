@@ -1,5 +1,33 @@
 # 📜 Kalianak Platform - Master Dev Log
 
+## 🟢 Session: 2026-02-28 19:36
+**Topic:** Safe-area fix, UI cleanup, restaurant rename, minor UX tasks
+**Branches:** `main`
+**iOS note:** Safe-area inset fix works correctly on Android (Capacitor). On iOS devices (iPhone 17 Pro Max etc.) the header still renders behind the status bar on the first login-form → dashboard transition, but is correct on direct reopen. Root cause not confirmed — suspected timing issue with how iOS WebView reports window insets during the splash/login transition. **Not a priority** (app runs on Android tablets), but should be revisited if iOS support becomes a requirement.
+
+### 🌳 Root / Configuration
+- **Commit:** *(filled after sync)*
+- **Summary:** No root config changes this session.
+
+### 🏗️ Frontend
+- **Commit:** *(filled after sync)*
+- **Summary:** Safe-area layout fix, ChatAssistant removed, Dashboard cleaned up, multiple UX copy/layout tasks.
+- **Details:**
+  - `index.html`: Removed `padding-*: env(safe-area-inset-*)` from `body` — moved safe-area handling to individual elements
+  - `App.tsx`: Outer div `min-h-screen` → `h-screen`; `<main>` removed `h-screen` + added `min-h-0`; `<header>` gets `paddingTop: calc(env(safe-area-inset-top) + 1rem)` for correct edge-to-edge positioning
+  - `Sidebar.tsx`: Added `paddingTop: env(safe-area-inset-top)` to fixed `<nav>` so sidebar content clears the status bar; logout button text removed (icon only); status text changed from "BACKEND: CONNECTED/OFFLINE" → "Online" / "Disconnected"
+  - `components/ChatAssistant.tsx`: **Deleted** — will be re-added at a later stage
+  - `components/Dashboard.tsx`: Removed "System Status" and "Recent Logs" cards; removed "Terminal" from hero title; extracted "New Order" button into its own separate card below the welcome hero; cleaned up `ActivityLog` state and `activityLogs` API call
+  - `components/LandingPage.tsx`: Replaced marketing text with "Sistem POS untuk restoran Ikan Bakar Kalianak" + "by Kalianak Tech"
+  - `capacitor.config.ts`: Splash screen `launchShowDuration` 2000 → 4000ms
+
+### 🏗️ Backend
+- **Commit:** *(filled after sync)*
+- **Summary:** Restaurant names updated in seed command.
+- **Details:**
+  - `apps/users/management/commands/create_restaurants.py`: Renamed "Kalianak 1/2" → "Kalianak Depot 1/2" for fresh installs
+  - **Live DB updated manually** via `docker exec` shell one-liner: `Restaurant.objects.filter(code='KLN1').update(name='Kalianak Depot 1')` etc.
+
 ## 🔴 Session: 2026-02-28 11:33
 **Topic:** Image upload + crop feature (Menu, Supplies, Staff, Recipes) + MinIO URL fix
 **Branches:** `main`

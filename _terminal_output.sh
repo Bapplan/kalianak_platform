@@ -1,89 +1,66 @@
-andershedborg@Anderss-MacBook-Pro frontend % cd android && ./gradlew assembleDebug
+anders@vmi3083326:/opt/kalianak$ docker exec kalianak_backend python manage.py shell -c "                                                                                                                                       
+  from apps.users.models import Restaurant                                                                                                                                                       
+  Restaurant.objects.filter(code='KLN1').update(name='Kalianak Depot 1')                                                                                                                         
+  Restaurant.objects.filter(code='KLN2').update(name='Kalianak Depot 2')                                                                                                                         
+  print('Done')
+  "
+46 objects imported automatically (use -v 2 for details).
 
-> Configure project :app
-WARNING: The option setting 'android.usesSdkInManifest.disallowed=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.sdk.defaultTargetSdkToCompileSdkIfUnset=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.enableAppCompileTimeRClass=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.builtInKotlin=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.newDsl=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.r8.optimizedResourceShrinking=false' is deprecated.
-The current default is 'true'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: The option setting 'android.defaults.buildfeatures.resvalues=true' is deprecated.
-The current default is 'false'.
-It will be removed in version 10.0 of the Android Gradle plugin.
-WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-
-> Configure project :capacitor-android
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-
-> Configure project :capacitor-cordova-android-plugins
-WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-
-> Configure project :capacitor-splash-screen
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-
-> Configure project :capacitor-status-bar
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-WARNING: The property android.dependency.excludeLibraryComponentsFromConstraints improves project import performance for very large projects. It should be enabled to improve performance.
-To suppress this warning, add android.generateSyncIssueWhenLibraryConstraintsAreEnabled=false to gradle.properties
-
-> Task :capacitor-android:compileDebugJavaWithJavac
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-
-> Task :app:compileDebugJavaWithJavac
-Note: /Users/andershedborg/MEGA/Development/KalianakTech/projects/kalianak_platform/frontend/android/app/src/main/java/com/kalianak/pos/PrinterBluetoothPlugin.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
-[Incubating] Problems report is available at: file:///Users/andershedborg/MEGA/Development/KalianakTech/projects/kalianak_platform/frontend/android/build/reports/problems/problems-report.html
-
-BUILD SUCCESSFUL in 5s
-148 actionable tasks: 11 executed, 137 up-to-date
-Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html
-andershedborg@Anderss-MacBook-Pro android % 
+Traceback (most recent call last):
+  File "/app/manage.py", line 23, in <module>
+    main()
+    ~~~~^^
+  File "/app/manage.py", line 19, in main
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 443, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 437, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 420, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 464, in execute
+    output = self.handle(*args, **options)
+  File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/shell.py", line 261, in handle
+    exec(options["command"], {**globals(), **self.get_namespace(**options)})
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2
+    from apps.users.models import Restaurant                                                                                                                                                       
+IndentationError: unexpected indent
+anders@vmi3083326:/opt/kalianak$ docker exec kalianak_backend /app/.venv/bin/python manage.py shell -c "
+  from apps.users.models import Restaurant
+  Restaurant.objects.filter(code='KLN1').update(name='Kalianak Depot 1')
+  Restaurant.objects.filter(code='KLN2').update(name='Kalianak Depot 2')
+  print('Done')
+  "
+Traceback (most recent call last):
+  File "/app/manage.py", line 23, in <module>
+    main()
+    ~~~~^^
+  File "/app/manage.py", line 19, in main
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/app/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/app/.venv/lib/python3.13/site-packages/django/core/management/__init__.py", line 416, in execute
+    django.setup()
+    ~~~~~~~~~~~~^^
+  File "/app/.venv/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.13/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/app/.venv/lib/python3.13/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'storages'
