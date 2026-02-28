@@ -6,11 +6,11 @@
 **Status note:** Upload flow is live in production and working. Image display after upload shows some intermittent visual quirks — suspected browser cache, not yet confirmed. **Pick up next:** reload the page fresh and verify images display correctly, possibly add a `?v=timestamp` cache-buster to `imageUrl` after upload if the glitch persists. Also: server's `/opt/kalianak/.env` has `MINIO_ENDPOINT_URL=https://s3.ikanbakarkalianak.store` (patched via SSH) but the repo `.env` template still has the old internal hostname — should be updated.
 
 ### 🌳 Root / Configuration
-- **Commit:** *(see sync output)*
+- **Commit:** `73059e5`
 - **Summary:** No net change to docker-compose — infra_default network added then reverted after discovering it caused DB hostname collision.
 
 ### 🏗️ Backend
-- **Commit:** *(see sync output)*
+- **Commit:** `ca57fc8`
 - **Summary:** Three new image upload endpoints + critical MinIO URL bug fix.
 - **Details:**
   - `apps/menu/api.py`: added `POST /dishes/{dish_id}/upload-image/` — saves to `dish.image`, returns `imageUrl`
@@ -19,7 +19,7 @@
   - `core/storage.py`: overrode `url()` in `MediaStorage` to inject bucket name — fixes long-standing bug where `dish.image.url` returned `domain/key` instead of `domain/bucket/key`, causing 400 errors on all MinIO image loads
 
 ### 🏗️ Frontend
-- **Commit:** *(see sync output)*
+- **Commit:** `baefd69`
 - **Summary:** New shared `ImageCropModal` component wired into four management screens; `uploadImage()` added to API service.
 - **Details:**
   - **New** `components/ImageCropModal.tsx`: reusable modal — auto-opens file picker on mount, `react-easy-crop` canvas with zoom slider, extracts crop via `<canvas>` → JPEG `Blob`, calls `onSave(blob)` with loading spinner
